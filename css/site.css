@@ -120,6 +120,10 @@ body{
     background-size: 100% 460px;
     background-position: center top;
     background-image: url("../img/bg1.png");
+
+    background: none\9;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.enjoyingsoft.com/img/bg1.png', sizingMethod='scale');
+
     background-repeat: no-repeat;
 }
 
@@ -128,6 +132,10 @@ body{
     background-size: 100% 460px;
     background-position: center top;
     background-image: url("../img/bg2.png");
+
+    background: none\9;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.enjoyingsoft.com/img/bg2.png', sizingMethod='scale');
+
     background-repeat: no-repeat;
 }
 
@@ -136,6 +144,11 @@ body{
     background-size: 100% 460px;
     background-position: center top;
     background-image: url("../img/bg3.png");
+
+    background: none\9;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.enjoyingsoft.com/img/bg3.png', sizingMethod='scale');
+
+
     background-repeat: no-repeat;
 }
 
@@ -144,6 +157,11 @@ body{
     background-size: 100% 460px;
     background-position: center top;
     background-image: url("../img/bg4.png");
+
+    background: none\9;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.enjoyingsoft.com/img/bg4.png', sizingMethod='scale');
+
+
     background-repeat: no-repeat;
 }
 
