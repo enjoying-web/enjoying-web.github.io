@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+	<style>
+		body{
+    	font-family:  "Microsoft YaHei"
+		}
+	</style>
+  <meta charset="utf-8">
+  
+
+  
+  <title>EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB | 专注Mule ESB社区版实施，分享开源中间件</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我们在做企业集成项目的时候，经常会用到很多开源中间件，比如企业服务总线，消息中间件，服务框架等。在使用这些开源中间件的时候，我们也趟过了很多的坑，EnjoyingSoft，就是享受这些软件，其中积累的经验分享给大家，希望为开源事业做一份贡献。这篇系列主要说的是企业服务总线Mule ESB。 Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上">
+<meta name="keywords" content="Mule ESB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB">
+<meta property="og:url" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/index.html">
+<meta property="og:site_name" content="专注Mule ESB社区版实施，分享开源中间件">
+<meta property="og:description" content="我们在做企业集成项目的时候，经常会用到很多开源中间件，比如企业服务总线，消息中间件，服务框架等。在使用这些开源中间件的时候，我们也趟过了很多的坑，EnjoyingSoft，就是享受这些软件，其中积累的经验分享给大家，希望为开源事业做一份贡献。这篇系列主要说的是企业服务总线Mule ESB。 Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/mule-arc.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/ce-ee-compare.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/sap_demo.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/edi-demo.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/etl-demo.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/studio.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/install-ce-runtime.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/new-mule-project.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/http-drag.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/http-config.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/setpayload.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/run-project.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/postman.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/export.png">
+<meta property="og:updated_time" content="2018-12-17T12:33:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB">
+<meta name="twitter:description" content="我们在做企业集成项目的时候，经常会用到很多开源中间件，比如企业服务总线，消息中间件，服务框架等。在使用这些开源中间件的时候，我们也趟过了很多的坑，EnjoyingSoft，就是享受这些软件，其中积累的经验分享给大家，希望为开源事业做一份贡献。这篇系列主要说的是企业服务总线Mule ESB。 Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上">
+<meta name="twitter:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/mule-arc.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">专注Mule ESB社区版实施，分享开源中间件</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com">EnjoyingSoft</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/esb.html">企业服务总线</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/api.html">API全生命周期管理</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/docker.html">基于容器云的DevOps</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/about.html">关于我们</a>
+        
+          <a class="main-nav-link" href="/blogs/">Blogs</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" style="display:none" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.enjoyingsoft.com/blogs"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mule-base-01" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2018/12/17/mule-base-01/" class="article-date">
+  <time datetime="2018-12-17T13:31:23.000Z" itemprop="datePublished">2018-12-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们在做企业集成项目的时候，经常会用到很多开源中间件，比如企业服务总线，消息中间件，服务框架等。在使用这些开源中间件的时候，我们也趟过了很多的坑，EnjoyingSoft，就是享受这些软件，其中积累的经验分享给大家，希望为开源事业做一份贡献。这篇系列主要说的是企业服务总线Mule ESB。</p>
+<p>Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上市。我们作为MuleSoft的合作伙伴也有幸参与其中，在六年多的时间里，我们使用Mule ESB企业版实施，或者在社区版基础上扩展，使用Mule ESB社区版实施，帮助国内众多的企业成功上线SOA项目。</p>
+<p>使用Mule ESB的过程中，体会到其快速的开发效率，以及优秀的架构设计。同时也深感国内这块资料非常稀少，所以计划使用8篇文章来写Mule ESB的基础系列。</p>
+<ul>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a></p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第四篇：Mule Expression Language - MEL表达式</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第五篇：控制消息的流向-数据路由</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第六篇：Data Transform - 数据转换</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第七篇：SOAP Web Service的消费和创建</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第八篇：使用API构建Rest Service</p>
+</li>
+</ul>
+<h2 id="1-Mule-ESB基本介绍"><a href="#1-Mule-ESB基本介绍" class="headerlink" title="1.  Mule ESB基本介绍"></a>1.  Mule ESB基本介绍</h2><p>Mule ESB是世界上使用最广泛的开源企业服务总线（ESB）产品，已拥有超过数百万的下载量，以及来自世界各地数十万个开发人员，很多世界五百强企业选择Mule ESB作为企业集成平台。通过Mule，企业可以在短时间内轻松地创建并集成应用服务，Mule ESB消除了系统集成的复杂度，使开发人员能够在异构系统和服务之间，轻松地构建出高性能的集成应用。</p>
+<img src="/blogs/2018/12/17/mule-base-01/mule-arc.png">
+<p>和传统的ESB不一样，Mule ESB是一个轻量级的ESB，内核基于SEDA模型和Spring框架构建。基于Spring，意味有着非常灵活的扩展性。同时Mule ESB不仅仅是一个ESB，它也是流行的微服务体系中的一部分。这个系列我们着重介绍它的ESB功能，后续我们再着重介绍它的API管理等功能。</p>
+<h2 id="2-Mule-ESB社区版和企业版"><a href="#2-Mule-ESB社区版和企业版" class="headerlink" title="2.  Mule ESB社区版和企业版"></a>2.  Mule ESB社区版和企业版</h2><p>和很多开源软件一样，Mule ESB分成两个版本，社区版和企业版。其中社区版是免费使用的。而企业版则需要付费订阅使用，功能更强大。如果企业预算充足，则可以选择企业版。或者使用Mule ESB社区版，在社区版基础上做扩展，在有技术支持的情况下，同样可以收到良好的效果。</p>
+<p>关于社区版和企业版的主要区别，可以参照下表。如何选择可以参考具体的业务场景和企业情况。Anyway，由于Mule ESB是开源的，我们在社区版上可以有很多的灵活扩展。</p>
+<img src="/blogs/2018/12/17/mule-base-01/ce-ee-compare.png">
+<h2 id="3-Mule-ESB常用场景"><a href="#3-Mule-ESB常用场景" class="headerlink" title="3.  Mule ESB常用场景"></a>3.  Mule ESB常用场景</h2><p>我们来说一下Mule ESB的常见应用场景，可以更好的理解Mule ESB到底可以帮助我们解决什么问题。</p>
+<ol>
+<li><p>旧系统改造，开放系统的服务能力。举个例子，我们有一个电商系统，需要调用SAP ERP的订单接口来创建订单。这个时候就需要将SAP的订单服务暴露成我们流行的Rest Service接口，以方便电商系统调用。当然电商系统可以直接使用SAP的JCO包来调用SAP的BAPI Function，但显然暴露一个通用的Rest Service更易于调用。使用Mule ESB实现如下：</p>
+<img src="/blogs/2018/12/17/mule-base-01/sap_demo.png">
+</li>
+<li><p>系统集成。举个例子，很多系统之间数据交互可能还是用FTP目录。尤其是企业跟企业之间的数据交互，比如，A企业丢一个EDI 文件到B企业的FTP目录，然后B企业会从FTP目录下载解析并放置到数据库。这个场景用Mule ESB实现就很方便。</p>
+<img src="/blogs/2018/12/17/mule-base-01/edi-demo.png">
+</li>
+<li><p>ETL。市面上有很多开源的ETL软件，其实Mule ESB也有ETL的功能，通过Flow设定ETL的数据转换和数据流向。下图就演示了Mule的ETL和数据分发功能。</p>
+<img src="/blogs/2018/12/17/mule-base-01/etl-demo.png">
+</li>
+</ol>
+<h2 id="4-Mule-ESB软件安装"><a href="#4-Mule-ESB软件安装" class="headerlink" title="4.  Mule ESB软件安装"></a>4.  Mule ESB软件安装</h2><p>用一个相对宽泛的标准来划分，Mule ESB软件可以分成两部分。</p>
+<p>一部分是客户端，也就是基于Eclipse的Anypoint Studio，客户端就是用来开发集成应用的，通常面向的用户就是我们的开发人员。由于是基于Eclipse环境，所以Java开发人员会很熟悉，同时Anypoint Studio也可以集成Git，SVN，Maven，Junit，Jenkins等一系列生态工具。</p>
+<p>当然作为其他语言的开发人员也不用担心，Anypoint Studio是一个可视化的拖拽的开发环境，大部分的工作只需要使用鼠标拖拽组件，配置属性即可。</p>
+<p>还要一部分是服务端，也就是Mule Runtime，也可以称作Container，容器，注意不要跟Docker的概念混淆。这里的Container指的是Java Container，你可以大概想象成Tomcat类似的东西。客户端开发的应用就部署运行在Mule Runtime中。</p>
+<p>需要注意的是，Mule Runtime是一个独立的Container，只依赖JDK，并不依赖其他第三方的容器。服务器中只需要安装JDK和Mule Runtime，即可运行Mule应用。还有一种不太常见的做法，就是把Mule App跑在第三方的容器里(比如Tomcat等)，通过对容器的扩展来支持Mule App。不过我们不推荐这种做法，还是推荐使用独立的Mule Runtime，也就是官方说的Standalone版本。</p>
+<h3 id="客户端安装"><a href="#客户端安装" class="headerlink" title="客户端安装"></a>客户端安装</h3><p>Anypoint Studio是基于Eclipse构建的，你可以在这里下载到(<a href="https://mule-studio.s3.amazonaws.com/6.4.4-U4/AnypointStudio-for-win-64bit-6.4.4-201803231844.zip" target="_blank" rel="noopener">Windows 64Bit</a>，<a href="https://mule-studio.s3.amazonaws.com/6.4.4-U4/AnypointStudio-for-macosx-64bit-6.4.4-201803231844.zip" target="_blank" rel="noopener">Mac 64Bit</a>)。请根据你的客户端的操作系统选择对应的版本。我们只要在Windows或者Mac电脑上安装好JDK8之后，解压缩Zip包，双击即可打开。打开的界面如下：</p>
+<img src="/blogs/2018/12/17/mule-base-01/studio.png">
+<p>由于Anypoint Studio默认只内嵌了Mule ESB企业版运行时，如果你想使用社区版的话，我们还需要安装Mule ESB社区版运行时。为什么客户端也需要Runtime？这很容易理解，我们开发调试都需要使用Runtime，难道你编写代码后，不运行和调试吗-:)</p>
+<p>安装社区版运行时，可以使用下列步骤。</p>
+<ol>
+<li><p>点击Help/Install New Software…菜单</p>
+</li>
+<li><p>在Work with下拉框中选择Mule Runtimes for Anypoint Studio</p>
+<img src="/blogs/2018/12/17/mule-base-01/install-ce-runtime.png">
+</li>
+<li><p>选中Mule ESB Server Runtime 3.9.0 CE，CE就是Community Edition，社区版的意思。然后点击Next一直到完成。</p>
+<h3 id="服务端安装"><a href="#服务端安装" class="headerlink" title="服务端安装"></a>服务端安装</h3></li>
+</ol>
+<p>服务端不区分操作系统，你可以从<a href="https://repository-master.mulesoft.org/nexus/service/local/repositories/releases/content/org/mule/distributions/mule-standalone/3.9.0/mule-standalone-3.9.0.tar.gz" target="_blank" rel="noopener">这里</a>下载到3.9.0版本的社区版Runtime。Mule ESB Runtime可以运行在Windows,Linux,Mac等操作系统上，我们推荐在生产环境使用Linux部署Mule ESB Runtime。服务端的安装也很简单，只要在服务器上安装好JDK8之后，解压缩Runtime即可。</p>
+<h2 id="5-第一个Mule-ESB应用-Hello-world"><a href="#5-第一个Mule-ESB应用-Hello-world" class="headerlink" title="5.  第一个Mule ESB应用- Hello world"></a>5.  第一个Mule ESB应用- Hello world</h2><p>我们学习新的语言和框架都会使用经典的Hello world程序，这里也不例外。我们要做的就是，使用Mule ESB建立一个HTTP服务，当用户访问HTTP端口后，返回Hello world。开发步骤很简单：</p>
+<ol>
+<li><p>点击File/New/Mule Project，新建Mule工程，这里选择使用CE版，也就是社区版，然后一步步Next直到完成。</p>
+<img src="/blogs/2018/12/17/mule-base-01/new-mule-project.png">
+</li>
+<li><p>拖入HTTP组件到空白的画布中。</p>
+<img src="/blogs/2018/12/17/mule-base-01/http-drag.png">
+</li>
+<li><p>选择画布上的Http组件，在属性页面新增Connector Configuration，在弹出窗口设定侦听的端口，注意不要和你本机的端口冲突。</p>
+<img src="/blogs/2018/12/17/mule-base-01/http-config.png">
+</li>
+<li><p>拖入Set Payload组件，在属性页面，设定Value值，Hello word。</p>
+<img src="/blogs/2018/12/17/mule-base-01/setpayload.png">
+</li>
+<li><p>在工程项目上右击弹出菜单，Run As/Mule Application。稍等片刻，Console窗口会出现”Mule is up and kicking”，表示Mule已经开始工作了！</p>
+<img src="/blogs/2018/12/17/mule-base-01/run-project.png">
+</li>
+<li><p>使用Postman访问HTTP端口，返回Hello world，Mule。恭喜你，你是一个Mule开发者了 -:)</p>
+<img src="/blogs/2018/12/17/mule-base-01/postman.png">
+</li>
+</ol>
+<p>使用Mule ESB上手非常简单，我们后续会介绍更多的组件，比如你需要从数据库获取数据，那么就使用Database，还有更多组件等待挖掘。</p>
+<h2 id="6-部署Mule-ESB应用"><a href="#6-部署Mule-ESB应用" class="headerlink" title="6.  部署Mule ESB应用"></a>6.  部署Mule ESB应用</h2><p>我们已经在客户端开发完成了Hello world，也顺利跑起来了。但是如何部署到服务端呢。和常见的Java开发一样，我们也需要打包应用。这里我们用的是普通工程，我们通过一个Export操作，即可导出Mule App（当然Mule App也支持Maven工程，可以通过Maven打包）。在工程项目上右击弹出菜单，Export…，然后在对话框中选择Anypoint Studio Project to Mule Deployable Archive。注意这里不要选中Attach project sources。</p>
+<img src="/blogs/2018/12/17/mule-base-01/export.png">
+<p>将导出的Zip包放入到Mule Runtime的apps目录下，然后启动Mule Runtime。如果是Linux或者mac，那么在Mule Runtime的bin目录下执行<code>./mule</code>启动命令。如果是Windows，双击执行bin目录mule.bat即可启动。</p>
+<p>然后使用Postman访问服务器，你会得到和Studio一样的效果。</p>
+<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10132360.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a></p>
+<p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB社区版实施</a>帮助。</p>
+<p>欢迎转载，但必须保留原文和此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/" data-id="cjps18udb00007m19jildas9h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB/">Mule ESB</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB/">Mule ESB</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 EnjoyingSoft<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://www.enjoyingsoft.com" class="mobile-nav-link">EnjoyingSoft</a>
+  
+    <a href="http://www.enjoyingsoft.com/esb.html" class="mobile-nav-link">企业服务总线</a>
+  
+    <a href="http://www.enjoyingsoft.com/api.html" class="mobile-nav-link">API全生命周期管理</a>
+  
+    <a href="http://www.enjoyingsoft.com/docker.html" class="mobile-nav-link">基于容器云的DevOps</a>
+  
+    <a href="http://www.enjoyingsoft.com/about.html" class="mobile-nav-link">关于我们</a>
+  
+    <a href="/blogs/" class="mobile-nav-link">Blogs</a>
+  
+</nav>
+    
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.1.0/dist/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+<!-- Gaug.es Analytics -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b8b19c43398031a1950e9bcc5f7c315c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- End Gaug.es Analytics -->
+
+
+
+  </div>
+</body>
+</html>
