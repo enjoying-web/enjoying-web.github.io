@@ -13,7 +13,7 @@
   <title>EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB | 专注Mule ESB社区版实施，分享开源中间件</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="我们在做企业集成项目的时候，经常会用到很多开源中间件，比如企业服务总线，消息中间件，服务框架等。在使用这些开源中间件的时候，我们也趟过了很多的坑，EnjoyingSoft，就是享受这些软件，其中积累的经验分享给大家，希望为开源事业做一份贡献。这篇系列主要说的是企业服务总线Mule ESB。 Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上">
-<meta name="keywords" content="Mule ESB">
+<meta name="keywords" content="Mule ESB 实施,Mule ESB 社区版 实施,Mule ESB实施,Mule ESB社区版实施">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB">
 <meta property="og:url" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/index.html">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/run-project.png">
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/postman.png">
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/export.png">
-<meta property="og:updated_time" content="2018-12-17T12:33:11.000Z">
+<meta property="og:updated_time" content="2018-12-20T15:54:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB">
 <meta name="twitter:description" content="我们在做企业集成项目的时候，经常会用到很多开源中间件，比如企业服务总线，消息中间件，服务框架等。在使用这些开源中间件的时候，我们也趟过了很多的坑，EnjoyingSoft，就是享受这些软件，其中积累的经验分享给大家，希望为开源事业做一份贡献。这篇系列主要说的是企业服务总线Mule ESB。 Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上">
@@ -117,7 +117,7 @@
 <ul>
 <li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a></p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</a></p>
 </li>
 <li><p>EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构</p>
 </li>
@@ -133,6 +133,7 @@
 </li>
 </ul>
 <h2 id="1-Mule-ESB基本介绍"><a href="#1-Mule-ESB基本介绍" class="headerlink" title="1.  Mule ESB基本介绍"></a>1.  Mule ESB基本介绍</h2><p>Mule ESB是世界上使用最广泛的开源企业服务总线（ESB）产品，已拥有超过数百万的下载量，以及来自世界各地数十万个开发人员，很多世界五百强企业选择Mule ESB作为企业集成平台。通过Mule，企业可以在短时间内轻松地创建并集成应用服务，Mule ESB消除了系统集成的复杂度，使开发人员能够在异构系统和服务之间，轻松地构建出高性能的集成应用。</p>
+<a id="more"></a>
 <img src="/blogs/2018/12/17/mule-base-01/mule-arc.png">
 <p>和传统的ESB不一样，Mule ESB是一个轻量级的ESB，内核基于SEDA模型和Spring框架构建。基于Spring，意味有着非常灵活的扩展性。同时Mule ESB不仅仅是一个ESB，它也是流行的微服务体系中的一部分。这个系列我们着重介绍它的ESB功能，后续我们再着重介绍它的API管理等功能。</p>
 <h2 id="2-Mule-ESB社区版和企业版"><a href="#2-Mule-ESB社区版和企业版" class="headerlink" title="2.  Mule ESB社区版和企业版"></a>2.  Mule ESB社区版和企业版</h2><p>和很多开源软件一样，Mule ESB分成两个版本，社区版和企业版。其中社区版是免费使用的。而企业版则需要付费订阅使用，功能更强大。如果企业预算充足，则可以选择企业版。或者使用Mule ESB社区版，在社区版基础上做扩展，在有技术支持的情况下，同样可以收到良好的效果。</p>
@@ -196,21 +197,35 @@
 <p>将导出的Zip包放入到Mule Runtime的apps目录下，然后启动Mule Runtime。如果是Linux或者mac，那么在Mule Runtime的bin目录下执行<code>./mule</code>启动命令。如果是Windows，双击执行bin目录mule.bat即可启动。</p>
 <p>然后使用Postman访问服务器，你会得到和Studio一样的效果。</p>
 <p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10132360.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a></p>
-<p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB社区版实施</a>帮助。</p>
+<p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB实施,Mule ESB社区版实施,Mule ESB 实施,Mule ESB 社区版 实施</a>帮助。</p>
 <p>欢迎转载，但必须保留原文和此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/" data-id="cjps18udb00007m19jildas9h" class="article-share-link">Share</a>
+      <a data-url="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/" data-id="cjpwrgiye0001oqse2fcw84db" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB/">Mule ESB</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB-实施/">Mule ESB 实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB-社区版-实施/">Mule ESB 社区版 实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB实施/">Mule ESB实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB社区版实施/">Mule ESB社区版实施</a></li></ul>
 
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+    <a href="/blogs/2018/12/20/mule-base-02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
   
 </article>
 
@@ -225,7 +240,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB/">Mule ESB</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB-实施/">Mule ESB 实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB-社区版-实施/">Mule ESB 社区版 实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB实施/">Mule ESB实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB社区版实施/">Mule ESB社区版实施</a></li></ul>
     </div>
   </div>
 
@@ -246,6 +261,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</a>
+          </li>
         
           <li>
             <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a>

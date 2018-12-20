@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+	<style>
+		body{
+    	font-family:  "Microsoft YaHei"
+		}
+	</style>
+  <meta charset="utf-8">
+  
+
+  
+  <title>EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念 | 专注Mule ESB社区版实施，分享开源中间件</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上市。我们作为MuleSoft的合作伙伴也有幸参与其中，在六年多的时间里，我们使用Mule ESB实施，包括使用Mule ESB企业版实施，或者在社区版基础上扩展，使用Mule ESB社区版实施，帮助国内众多的企业成功上线SOA项目。 使用Mule ESB的过程中，体会到其快速的开发效率，以及">
+<meta name="keywords" content="Mule ESB 实施,Mule ESB 社区版 实施,Mule ESB实施,Mule ESB社区版实施">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念">
+<meta property="og:url" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/index.html">
+<meta property="og:site_name" content="专注Mule ESB社区版实施，分享开源中间件">
+<meta property="og:description" content="Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上市。我们作为MuleSoft的合作伙伴也有幸参与其中，在六年多的时间里，我们使用Mule ESB实施，包括使用Mule ESB企业版实施，或者在社区版基础上扩展，使用Mule ESB社区版实施，帮助国内众多的企业成功上线SOA项目。 使用Mule ESB的过程中，体会到其快速的开发效率，以及">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/studio-full.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/studio-full-2.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/java-project.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/mule-project.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/mule-app.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/anypoint-connector-460x215.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/mule-elements.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/flow-demo.png">
+<meta property="og:updated_time" content="2018-12-20T15:54:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念">
+<meta name="twitter:description" content="Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上市。我们作为MuleSoft的合作伙伴也有幸参与其中，在六年多的时间里，我们使用Mule ESB实施，包括使用Mule ESB企业版实施，或者在社区版基础上扩展，使用Mule ESB社区版实施，帮助国内众多的企业成功上线SOA项目。 使用Mule ESB的过程中，体会到其快速的开发效率，以及">
+<meta name="twitter:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/studio-full.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">专注Mule ESB社区版实施，分享开源中间件</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com">EnjoyingSoft</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/esb.html">企业服务总线</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/api.html">API全生命周期管理</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/docker.html">基于容器云的DevOps</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/about.html">关于我们</a>
+        
+          <a class="main-nav-link" href="/blogs/">Blogs</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" style="display:none" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.enjoyingsoft.com/blogs"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mule-base-02" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2018/12/20/mule-base-02/" class="article-date">
+  <time datetime="2018-12-20T15:28:31.000Z" itemprop="datePublished">2018-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上市。我们作为MuleSoft的合作伙伴也有幸参与其中，在六年多的时间里，我们使用Mule ESB实施，包括使用Mule ESB企业版实施，或者在社区版基础上扩展，使用Mule ESB社区版实施，帮助国内众多的企业成功上线SOA项目。</p>
+<p>使用Mule ESB的过程中，体会到其快速的开发效率，以及优秀的架构设计。同时也深感国内这块资料非常稀少，所以计划使用8篇文章来写Mule ESB的基础系列。</p>
+<ul>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a></p>
+</li>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</a></p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第四篇：Mule Expression Language - MEL表达式</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第五篇：控制消息的流向-数据路由</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第六篇：Data Transform - 数据转换</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第七篇：SOAP Web Service的消费和创建</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB基础系列第八篇：使用API构建Rest Service</p>
+</li>
+</ul>
+<h2 id="1-使用Anypoint-Studio开发"><a href="#1-使用Anypoint-Studio开发" class="headerlink" title="1.  使用Anypoint Studio开发"></a>1.  使用Anypoint Studio开发</h2><p>Anypoint Studio是 MuleSoft提供的基于 Eclipse架构的集成开发环境 (IDE) 。使用Anypoint Studio，程序员可以几分种内轻松地创建出集成化的流程图，并使用图形化转换器来完成数据的映射。这里的映射就是指消息转换，消息转换是ESB很重要的功能。Anypoint Studio的图形化转换器功能非常强大，可以全方面的转换数据，包括数据结构，数据类型，数据内容的转换等。注意，图形化转换器是企业版才有的功能，社区版则需要自行开发，我们在社区版做过类似的图形化转换工具。</p>
+<p>Anypoint Studio可以让开发人员用拖拽的方式把连接器(Connectors)、转化器(Transformers)以及其他Processor放到开发环境的画布上，Anypoint Studio会自动把图形化的流程界面转化为后台的XML配置文件。</p>
+<p>Anypoint Studio默认集成Mule ESB企业版运行时，我们也可以在Anypoint Studio上集成社区版运行时，具体可参考<a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">上一篇文章</a>。</p>
+<a id="more"></a>
+<p>下图是Anypoint Studio的各个区域说明。</p>
+<ul>
+<li><p>包资源浏览器</p>
+<p>和Java工程类似，管理工程项目的资源。</p>
+</li>
+<li><p>画布</p>
+<p>主要的可视化开发环境，通过拖拽的方式组织逻辑，定义属性。</p>
+</li>
+<li><p>工具箱</p>
+<p>包括Connector,Processor等开箱即用的组件。</p>
+</li>
+<li><p>连接探索器</p>
+<p>这里可以展示全局的连接器配置属性。</p>
+</li>
+<li><p>控制台</p>
+<p>和Java工程一样，Console输出控制台。</p>
+</li>
+</ul>
+<img src="/blogs/2018/12/20/mule-base-02/studio-full.png">
+<p>在主界面上有三个Tab页签，其中图形化设计器和XML编辑器是可以互相切换的。所以你可以使用图形化的拖拽开发，熟悉Mule的工程师也可以直接使用XML编辑器来完成工具。需要注意的是，有些属性在图形化界面是无法设定的，这个时候你只能在XML编辑器中完成设定工作。好在XML编辑器也提供代码上下文语法提示，可以方便开发工程师输入XML元素。</p>
+<ul>
+<li><p>Message Flow </p>
+<p>图形化设计器页签，在这里可以拖拽组件，编辑组件属性。</p>
+</li>
+<li><p>Global Elements</p>
+<p>全局元素列表页签，所谓全局元素，可以理解成这些元素是全局共享，可以被其他元素所引用。</p>
+</li>
+<li><p>Configuration XML</p>
+<p>点击此页签，切换到XML编辑器。实际上，图形化界面就是对XML代码的渲染。</p>
+</li>
+</ul>
+<img src="/blogs/2018/12/20/mule-base-02/studio-full-2.png">
+<h2 id="2-Mule-ESB-Application-Structure-Mule-ESB应用程序结构"><a href="#2-Mule-ESB-Application-Structure-Mule-ESB应用程序结构" class="headerlink" title="2.  Mule ESB Application Structure - Mule ESB应用程序结构"></a>2.  Mule ESB Application Structure - Mule ESB应用程序结构</h2><p>我们来看一个基于Maven项目，使用典型的archetype构建的应用程序的目录结构，可以看到一般分成src/main/java，src/main/resources，src/test/java，src/test/resources等目录。每个目录的作用Java程序员都很清楚。</p>
+<img src="/blogs/2018/12/20/mule-base-02/java-project.png">
+<p>我们再来看看Mule ESB Application的结构是什么。从图示可以发现，Mule的应用程序和Java应用程序几乎一致，其中有几个新目录着重介绍一下。</p>
+<ul>
+<li><p>src/main/app</p>
+<p>这个目录就是放置Mule的配置文件，也就是Mule Configuration File。打开Mule Configuration File就会开启设计器界面。</p>
+</li>
+<li><p>src/main/api</p>
+<p>这个目录是放置Restful API的定义文件。</p>
+</li>
+<li><p>src/main/wsdl</p>
+<p>这个目录是放置SOAP Webservice的WSDL文件。</p>
+</li>
+</ul>
+<img src="/blogs/2018/12/20/mule-base-02/mule-project.png">
+<h2 id="3-Mule-ESB-Application整体构造"><a href="#3-Mule-ESB-Application整体构造" class="headerlink" title="3.  Mule ESB Application整体构造"></a>3.  Mule ESB Application整体构造</h2><p>我们在<a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">上一篇文章</a>已经对Mule ESB Application有了一个初步的认识，总结起来，Mule的应用程序就是由一个或者多个Mule Configuration File组成，每个Mule Configuration File里面可以放置一个或者多个Flow。每一个FLow又是由Connector和Processor等组成。</p>
+<p>而Flow是Mule的核心概念，下图展示了Flow的结构。</p>
+<img src="/blogs/2018/12/20/mule-base-02/mule-app.png">
+<h2 id="4-Mule-ESB构造元素-Flow"><a href="#4-Mule-ESB构造元素-Flow" class="headerlink" title="4.  Mule ESB构造元素 - Flow"></a>4.  Mule ESB构造元素 - Flow</h2><p>Mule ESB的应用程序通常是设计用来接收和处理消息。接收消息我们通常使用Connector Source来做，而处理消息通常使用一个或者多个Processor来做。Flow就是用来组织Connector和Processor的组。在一个Flow中，你可以将多个单独的Mule元素链接起来，用来实现接收，处理，过滤，路由消息等功能。</p>
+<p>Flow实际就是上图的边框。实际还有Sub Flow的概念，主要用于Flow的公用，这些不展开讲述。</p>
+<h2 id="5-Mule-ESB构造元素-Connector"><a href="#5-Mule-ESB构造元素-Connector" class="headerlink" title="5.  Mule ESB构造元素 - Connector"></a>5.  Mule ESB构造元素 - Connector</h2><p>Mule的Connector是其非常优秀的功能，数百个开箱即用Connector可以帮助开发者连接不同的应用。从常见的HTTP，TCP，FTP，LDAP等协议，Hadoop大数据，到大型的商用系统SAP，Oracle，Salesforce，Mule都提供了相应的Connector。</p>
+<img src="/blogs/2018/12/20/mule-base-02/anypoint-connector-460x215.png">
+<p>Connector又分成Source Connector（又称为Inbound Connector）和Target Connector（又称为Outbound Connector）。</p>
+<p>Source Connector用来接收消息，可以理解成监听器，而Target Connector是用来发送消息的组件。</p>
+<h2 id="6-Mule-ESB构造元素-Processor"><a href="#6-Mule-ESB构造元素-Processor" class="headerlink" title="6.  Mule ESB构造元素 - Processor"></a>6.  Mule ESB构造元素 - Processor</h2><p>Mule的Processor包含的内容更广泛，从Studio右侧的工具箱可以看到很多的控件元素，除去上文讲述的Connector，余下的基本都可以归纳到Processor。</p>
+<img src="/blogs/2018/12/20/mule-base-02/mule-elements.png">
+<p>Processor大概可以分成几类。</p>
+<ul>
+<li><p>Transformers</p>
+<p>可以称作转换器，用来转换消息的类型，结构和内容，比如将XML换成JSON。</p>
+</li>
+<li><p>Components</p>
+<p>组件，可以使用Java或者脚本语言组件，比如JavaScript等。这些组件使用程序语言来描述商业逻辑。</p>
+</li>
+<li><p>Flow Control</p>
+<p>控制消息的流向，比如消息的路由，消息的分割聚合等。</p>
+</li>
+<li><p>Scopes</p>
+<p>通过Scope，我们可以改变内部Processor的行为特征。</p>
+</li>
+<li><p>Filters</p>
+<p>过滤消息，我们可以定义规则过滤非法的消息。</p>
+</li>
+</ul>
+<p>下图总结了本文所讲述的内容，该Flow包含了上述所说的几类Processor。</p>
+<img src="/blogs/2018/12/20/mule-base-02/flow-demo.png">
+<p>本文已经讲述了Mule的基本概念，包括Mule ESB Application，Flow，Connector，Processor等。贯穿其中的就是消息，也就是Mule Message。Mule Message是Mule开发中非常重要的概念，下篇文章将着重讲解Mule Message。</p>
+<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10153082.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</a></p>
+<p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB实施,Mule ESB社区版实施,Mule ESB 实施,Mule ESB 社区版 实施</a>帮助。</p>
+<p>欢迎转载，但必须保留原文和此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/" data-id="cjpwrgiy70000oqse8ite11g0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB-实施/">Mule ESB 实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB-社区版-实施/">Mule ESB 社区版 实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB实施/">Mule ESB实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB社区版实施/">Mule ESB社区版实施</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blogs/2018/12/17/mule-base-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB-实施/">Mule ESB 实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB-社区版-实施/">Mule ESB 社区版 实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB实施/">Mule ESB实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB社区版实施/">Mule ESB社区版实施</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 EnjoyingSoft<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://www.enjoyingsoft.com" class="mobile-nav-link">EnjoyingSoft</a>
+  
+    <a href="http://www.enjoyingsoft.com/esb.html" class="mobile-nav-link">企业服务总线</a>
+  
+    <a href="http://www.enjoyingsoft.com/api.html" class="mobile-nav-link">API全生命周期管理</a>
+  
+    <a href="http://www.enjoyingsoft.com/docker.html" class="mobile-nav-link">基于容器云的DevOps</a>
+  
+    <a href="http://www.enjoyingsoft.com/about.html" class="mobile-nav-link">关于我们</a>
+  
+    <a href="/blogs/" class="mobile-nav-link">Blogs</a>
+  
+</nav>
+    
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.1.0/dist/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+<!-- Gaug.es Analytics -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b8b19c43398031a1950e9bcc5f7c315c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- End Gaug.es Analytics -->
+
+
+
+  </div>
+</body>
+</html>
