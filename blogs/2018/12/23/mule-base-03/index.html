@@ -10,12 +10,12 @@
   
 
   
-  <title>EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构 | 专注Mule ESB社区版实施，分享开源中间件</title>
+  <title>EnjoyingSoft之Mule ESB基础教程系列第三篇：Mule message structure - Mule message结构 | 专注Mule ESB社区版实施，分享开源中间件</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Mule ESB是一个使用Java语言编写的开源企业服务总线，企业服务总线英文Enterprise Service Bus，简称ESB。其相关源代码也托管在GitHub上，可以在https://github.com/mulesoft/mule这里找到相关的Source Code。 MuleESB在众多开源的ESB中处于领先者的地位，已拥有超过数百万的下载量，以及来自世界各地数十万个开发人员。Mul">
 <meta name="keywords" content="Mule ESB实施,Mule ESB社区版实施,Mule ESB 实施,Mule ESB 社区版 实施">
 <meta property="og:type" content="article">
-<meta property="og:title" content="EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构">
+<meta property="og:title" content="EnjoyingSoft之Mule ESB基础教程系列第三篇：Mule message structure - Mule message结构">
 <meta property="og:url" content="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/index.html">
 <meta property="og:site_name" content="专注Mule ESB社区版实施，分享开源中间件">
 <meta property="og:description" content="Mule ESB是一个使用Java语言编写的开源企业服务总线，企业服务总线英文Enterprise Service Bus，简称ESB。其相关源代码也托管在GitHub上，可以在https://github.com/mulesoft/mule这里找到相关的Source Code。 MuleESB在众多开源的ESB中处于领先者的地位，已拥有超过数百万的下载量，以及来自世界各地数十万个开发人员。Mul">
@@ -24,9 +24,9 @@
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/mule-message.png">
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/httpbody.png">
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/messagemodal.png">
-<meta property="og:updated_time" content="2018-12-23T13:32:59.000Z">
+<meta property="og:updated_time" content="2018-12-24T08:23:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构">
+<meta name="twitter:title" content="EnjoyingSoft之Mule ESB基础教程系列第三篇：Mule message structure - Mule message结构">
 <meta name="twitter:description" content="Mule ESB是一个使用Java语言编写的开源企业服务总线，企业服务总线英文Enterprise Service Bus，简称ESB。其相关源代码也托管在GitHub上，可以在https://github.com/mulesoft/mule这里找到相关的Source Code。 MuleESB在众多开源的ESB中处于领先者的地位，已拥有超过数百万的下载量，以及来自世界各地数十万个开发人员。Mul">
 <meta name="twitter:image" content="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/messageinflow.png">
   
@@ -93,7 +93,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构
+      EnjoyingSoft之Mule ESB基础教程系列第三篇：Mule message structure - Mule message结构
     </h1>
   
 
@@ -104,25 +104,25 @@
         <p>Mule ESB是一个使用Java语言编写的开源企业服务总线，企业服务总线英文Enterprise Service Bus，简称ESB。其相关源代码也托管在GitHub上，可以在<a href="https://github.com/mulesoft/mule" target="_blank" rel="noopener">https://github.com/mulesoft/mule</a>这里找到相关的Source Code。</p>
 <p>MuleESB在众多开源的ESB中处于领先者的地位，已拥有超过数百万的下载量，以及来自世界各地数十万个开发人员。MuleSoft公司也作为开源软件中的独角兽，2017年在纽交所成功上市。我们作为MuleSoft的重要合作伙伴也参与其中，在六年多的时间里，使用Mule ESB社区版实施，或者Mule ESB企业版实施，构建众多Mule ESB开发案例，帮助国内众多的企业成功上线企业集成项目。</p>
 <a id="more"></a>
-<p>我们使用Mule ESB开发的过程中，体会到它优秀的架构设计和高效的开发速度。同时也深感Mule ESB书籍，Mule ESB中文文档资料非常稀少，所以使用8篇文章来写Mule ESB的基础系列教程，讲解Mule ESB功能和开发。</p>
+<p>我们使用Mule ESB开发的过程中，体会到它优秀的架构设计和高效的开发速度。同时也深感Mule ESB书籍，Mule ESB中文文档资料非常稀少，所以使用8篇文章来写Mule ESB的基础课程系列教程，讲解Mule ESB功能和开发。</p>
 <ul>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础教程系列第一篇：初识Mule ESB</a></p>
 </li>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB基础教程系列第二篇：Mule ESB基本概念</a></p>
 </li>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB基础教程系列第三篇：Mule message structure - Mule message结构</a></p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构</p>
+<li><p>EnjoyingSoft之Mule ESB基础教程系列第三篇：Mule message structure - Mule message结构</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB基础系列第四篇：Mule Expression Language - MEL表达式</p>
+<li><p>EnjoyingSoft之Mule ESB基础教程系列第四篇：Mule Expression Language - MEL表达式</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB基础系列第五篇：控制消息的流向-数据路由</p>
+<li><p>EnjoyingSoft之Mule ESB基础教程系列第五篇：控制消息的流向-数据路由</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB基础系列第六篇：Data Transform - 数据转换</p>
+<li><p>EnjoyingSoft之Mule ESB基础教程系列第六篇：Data Transform - 数据转换</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB基础系列第七篇：SOAP Web Service的消费和创建</p>
+<li><p>EnjoyingSoft之Mule ESB基础教程系列第七篇：SOAP Web Service的消费和创建</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB基础系列第八篇：使用API构建Rest Service</p>
+<li><p>EnjoyingSoft之Mule ESB基础教程系列第八篇：使用API构建Rest Service</p>
 </li>
 </ul>
 <h2 id="1-探索Mule-Message结构"><a href="#1-探索Mule-Message结构" class="headerlink" title="1. 探索Mule Message结构"></a>1. 探索Mule Message结构</h2><p>很多开发者在开始使用Mule开发，很大原因是因为Mule的图形化开发环境非常友好，同时Mule Esb Transport也非常多，但对Mule最重要的Mule message概念并不特别熟悉。本篇重点讲解Mule的Message。</p>
@@ -143,17 +143,30 @@
 </li>
 </ul>
 <img src="/blogs/2018/12/23/mule-base-03/httpbody.png">
+<p>如果你想看到整个MuleMessage的结构，使用Mule的Logger组件可以很方便的看到Message完整的组成。使用Logger打印出message，logger组件会重载message的toString方法，打印出Pretty格式的message。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mule</span> <span class="attr">xmlns:http</span>=<span class="string">"http://www.mulesoft.org/schema/mule/http"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.mulesoft.org/schema/mule/core"</span> <span class="attr">xmlns:doc</span>=<span class="string">"http://www.mulesoft.org/schema/mule/documentation"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:spring</span>=<span class="string">"http://www.springframework.org/schema/beans"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">http:listener-config</span> <span class="attr">name</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">host</span>=<span class="string">"0.0.0.0"</span> <span class="attr">port</span>=<span class="string">"8081"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP Listener Configuration"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"loggertestFlow"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">set-payload</span> <span class="attr">value</span>=<span class="string">"#[&amp;quot;Mule Message&amp;quot;]"</span> <span class="attr">doc:name</span>=<span class="string">"Set Payload"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">message</span>=<span class="string">"#[message]"</span> <span class="attr">level</span>=<span class="string">"INFO"</span> <span class="attr">doc:name</span>=<span class="string">"Logger"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mule</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以从下图的记录中找到和上图Message Structure相对应的节点。出于篇幅原因，做了简略处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">org.mule.DefaultMuleMessage</span><br><span class="line">&#123;</span><br><span class="line">  id=f88d0090-074c-11e9-89b7-0c5415358ba9</span><br><span class="line">  payload=java.lang.String</span><br><span class="line">  correlationId=&lt;not set&gt;</span><br><span class="line">  correlationGroup=-1</span><br><span class="line">  correlationSeq=-1</span><br><span class="line">  encoding=UTF-8</span><br><span class="line">  exceptionPayload=&lt;not set&gt;</span><br><span class="line"></span><br><span class="line">Message properties:</span><br><span class="line">  INVOCATION scoped properties:</span><br><span class="line">  INBOUND scoped properties:</span><br><span class="line">    accept=*/*</span><br><span class="line">    accept-encoding=gzip, deflate, br</span><br><span class="line">    accept-language=zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line">    cache-control=no-cache</span><br><span class="line">    connection=keep-alive</span><br><span class="line">    content-length=2</span><br><span class="line">    content-type=text/plain;charset=UTF-8</span><br><span class="line">    host=localhost:8081</span><br><span class="line">    http.listener.path=/</span><br><span class="line">    http.method=POST</span><br><span class="line">    http.query.params=ParameterMap&#123;[]&#125;</span><br><span class="line">    http.query.string=</span><br><span class="line">    http.relative.path=/</span><br><span class="line">    http.remote.address=/127.0.0.1:57630</span><br><span class="line">    http.request.path=/</span><br><span class="line">    http.request.uri=/</span><br><span class="line">    http.scheme=http</span><br><span class="line">    http.uri.params=ParameterMap&#123;[]&#125;</span><br><span class="line">    http.version=HTTP/1.1</span><br><span class="line">  SESSION scoped properties:</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="2-Mule-Message的Payload"><a href="#2-Mule-Message的Payload" class="headerlink" title="2. Mule Message的Payload"></a>2. Mule Message的Payload</h2><p>Payload翻译成中文是负荷，负载的意思。它是Mule Message的主要部分，也是Mule处理的主要对象。我们后续说的数据转换就是对Payload的转换。注意Mule Message的Payload是有可能为空的，比如接收到一个Http Get请求，Http Get请求的请求体是空的，所以这个时候Mule Message的Payload是空的。</p>
+<p>在Flow中，最常用的动作就是给payload赋值，给Payload赋值会使用set-payload组件。如果我们在Flow中想获取payload，可以使用MEL表达式。</p>
+<p>下面的源代码表示payload的赋值和取值。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"payloadFlow"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">set-payload</span> <span class="attr">value</span>=<span class="string">"#[&amp;quot;Mule Message&amp;quot;]"</span> <span class="attr">doc:name</span>=<span class="string">"Set Payload"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">message</span>=<span class="string">"#[payload]"</span> <span class="attr">level</span>=<span class="string">"INFO"</span> <span class="attr">doc:name</span>=<span class="string">"Logger"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="3-Mule-Message的Property"><a href="#3-Mule-Message的Property" class="headerlink" title="3. Mule Message的Property"></a>3. Mule Message的Property</h2><p>Mule Message的Property是一个键值对，有name和对应的value。Mule Message有两种类型的Property，Inbound Properties和Outbound Properties。Inbound Properties或者Outbound Properties可以有多个Property，也就是多个键值对。</p>
 <p>Inbound Properties是不可变的，是由Message Source产生的。就类似于Http的请求参数，是由用户的数据请求，经过Java的Servlet，或者Asp.Net等框架封装成Http Request对象。</p>
 <p>Outbound Properties是可变的，我们在Mule的Flow中新增或者改变这些属性。注意，比如转换器，有些Mule Processor会自动增加有些属性。</p>
+<p>在Mule中设定Property使用set-property组件，如果需要获取，同样使用MEL表达式。详细的MEL表达式，我们下篇会展开讲解。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"propertyFlow"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">set-property</span> <span class="attr">propertyName</span>=<span class="string">"#[&amp;quot;userName&amp;quot;]"</span> <span class="attr">value</span>=<span class="string">"#[&amp;quot;Tom&amp;quot;]"</span> <span class="attr">doc:name</span>=<span class="string">"Property"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="4-Mule-Message的Attachment"><a href="#4-Mule-Message的Attachment" class="headerlink" title="4. Mule Message的Attachment"></a>4. Mule Message的Attachment</h2><p>Attachment，正如字面上意思，可以理解成消息的附件。想象一封邮件，有邮件发送人等头信息，也有邮件正文，同样还有邮件附件。和Property一样，Attachment也有两种类型，Inbound Attachment和Outbound Attachment。我们通常将一些大的对象作为附件传输。</p>
+<p>使用set-attachment设置附件，这里将payload作为pdf文档附件供消费者下载。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"variableFlow"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">set-attachment</span> <span class="attr">attachmentName</span>=<span class="string">"#[&amp;quot;doc&amp;quot;]"</span> <span class="attr">value</span>=<span class="string">"#[payload]"</span> <span class="attr">contentType</span>=<span class="string">"application/pdf"</span> <span class="attr">doc:name</span>=<span class="string">"Attachment"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="5-Mule的Variable"><a href="#5-Mule的Variable" class="headerlink" title="5. Mule的Variable"></a>5. Mule的Variable</h2><p>Variable也就是变量，有几种类型的变量，或者说几种不同范围的变量，如下：Flow Variable，Session Variable，Record Variable。Flow Variable在一个Flow是有效的，Session Variable是可以跨Flow的，Record Variable则是处理数据列表时会用到。</p>
 <p>这里不详细讲述。从使用上说，有些类似于Java里面的局部变量，Session变量，但不完全一致。后续实战文章会分析这一点。</p>
+<p>在Mule里，使用set-variable和MEL表达式对变量做赋值和取值操作。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"attachmentFlow"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">set-variable</span> <span class="attr">variableName</span>=<span class="string">"orderNo"</span> <span class="attr">value</span>=<span class="string">"#[&amp;quot;1238&amp;quot;]"</span> <span class="attr">doc:name</span>=<span class="string">"Variable"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="6-使用Java操作Mule-Message"><a href="#6-使用Java操作Mule-Message" class="headerlink" title="6. 使用Java操作Mule Message"></a>6. 使用Java操作Mule Message</h2><p>对程序员来说，千言万语不如代码，如何使用Java操作Mule Message呢？通过Java代码我们可以清楚的看到Mule Message的结构，成员变量和方法等。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">explorMessage</span><span class="params">(MuleMessage message)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 获取InboundProperty</span></span><br><span class="line">	String requestPath = message.getInboundProperty(<span class="string">"http.request.path"</span>);</span><br><span class="line">	<span class="comment">// 设定OutboundProperty</span></span><br><span class="line">	message.setOutboundProperty(<span class="string">"content-type"</span>, <span class="string">"application/json"</span>);</span><br><span class="line">	<span class="comment">// 获取Payload</span></span><br><span class="line">	Object payload = message.getPayload();</span><br><span class="line">	<span class="comment">// 获取InboundAttachment</span></span><br><span class="line">	DataHandler fileAttachment = message.getInboundAttachment(<span class="string">"fileName"</span>);</span><br><span class="line">	<span class="comment">// 获取flow变量</span></span><br><span class="line">	message.getProperty(<span class="string">"flowVarTest"</span>, PropertyScope.INVOCATION);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下图是Mule Message的类图，类图中只列表了重要的方法和属性。<br><img src="/blogs/2018/12/23/mule-base-03/messagemodal.png"></p>
-<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10165617.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构</a></p>
+<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10165617.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB基础教程系列第三篇：Mule message structure - Mule message结构</a></p>
 <p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB 实施，Mule ESB 社区版 实施，Mule ESB实施，Mule ESB社区版实施</a>帮助。</p>
 <p>欢迎转载，但必须保留原文和此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
 
@@ -174,7 +187,7 @@
   
     <a href="/blogs/2018/12/20/mule-base-02/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</div>
+      <div class="article-nav-title">EnjoyingSoft之Mule ESB基础教程系列第二篇：Mule ESB基本概念</div>
     </a>
   
 </nav>
@@ -216,15 +229,15 @@
       <ul>
         
           <li>
-            <a href="/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB基础系列第三篇：Mule message structure - Mule message结构</a>
+            <a href="/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB基础教程系列第三篇：Mule message structure - Mule message结构</a>
           </li>
         
           <li>
-            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB基础系列第二篇：Mule ESB基本概念</a>
+            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB基础教程系列第二篇：Mule ESB基本概念</a>
           </li>
         
           <li>
-            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础系列第一篇：初识Mule ESB</a>
+            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB基础教程系列第一篇：初识Mule ESB</a>
           </li>
         
       </ul>
