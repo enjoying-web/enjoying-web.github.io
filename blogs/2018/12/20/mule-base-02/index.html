@@ -10,12 +10,12 @@
   
 
   
-  <title>EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念 | 专注Mule ESB社区版实施，分享开源中间件</title>
+  <title>EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念 | 专注Mule ESB社区版实施，分享开源中间件</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本篇主要介绍Mule ESB的基本概念，包括Mule ESB应用程序结构，Mule ESB Application整体构造。同时介绍Mule ESB的构造元素，Flow，Connector，Processor。">
 <meta name="keywords" content="Mule ESB实施,Mule ESB社区版实施,Mule ESB 实施,Mule ESB 社区版 实施">
 <meta property="og:type" content="article">
-<meta property="og:title" content="EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念">
+<meta property="og:title" content="EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念">
 <meta property="og:url" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/index.html">
 <meta property="og:site_name" content="专注Mule ESB社区版实施，分享开源中间件">
 <meta property="og:description" content="本篇主要介绍Mule ESB的基本概念，包括Mule ESB应用程序结构，Mule ESB Application整体构造。同时介绍Mule ESB的构造元素，Flow，Connector，Processor。">
@@ -28,9 +28,9 @@
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/anypoint-connector-460x215.png">
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/mule-elements.png">
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/flow-demo.png">
-<meta property="og:updated_time" content="2019-01-05T13:52:41.000Z">
+<meta property="og:updated_time" content="2019-01-05T14:39:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念">
+<meta name="twitter:title" content="EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念">
 <meta name="twitter:description" content="本篇主要介绍Mule ESB的基本概念，包括Mule ESB应用程序结构，Mule ESB Application整体构造。同时介绍Mule ESB的构造元素，Flow，Connector，Processor。">
 <meta name="twitter:image" content="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/studio-full.png">
   
@@ -97,7 +97,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念
+      EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念
     </h1>
   
 
@@ -108,23 +108,23 @@
         <p>本篇主要介绍Mule ESB的基本概念，包括Mule ESB应用程序结构，Mule ESB Application整体构造。同时介绍Mule ESB的构造元素，Flow，Connector，Processor。</p>
 <a id="more"></a>
 <p>Mule ESB在众多开源的ESB中处于领先者的地位，MuleSoft公司也作为独角兽，2017年在纽交所上市。我们作为MuleSoft的合作伙伴也有幸参与其中，在六年多的时间里，我们使用Mule ESB实施，包括使用Mule ESB企业版实施，或者在社区版基础上扩展，使用Mule ESB社区版实施，帮助国内众多的企业成功上线SOA项目。</p>
-<p>使用Mule ESB的过程中，体会到其快速的开发效率，以及优秀的架构设计。同时也深感国内这块资料非常稀少，所以计划使用8篇文章来写Mule ESB的基础课程系列。</p>
+<p>使用Mule ESB的过程中，体会到其快速的开发效率，以及优秀的架构设计。同时也深感国内这块资料非常稀少，所以计划使用8篇文章来写Mule ESB的基础开发课程系列。</p>
 <ul>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程系列第一篇：初识Mule ESB</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程第一篇：初识Mule ESB</a></p>
 </li>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念</a></p>
 </li>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程系列第三篇：Mule message structure - Mule message结构</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程第三篇：Mule message structure - Mule message结构</a></p>
 </li>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式</a></p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由</p>
+<li><p>EnjoyingSoft之Mule ESB开发教程第五篇：控制消息的流向-数据路由</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB开发教程系列第六篇：Data Transform - 数据转换</p>
+<li><p>EnjoyingSoft之Mule ESB开发教程第六篇：Data Transform - 数据转换</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB开发教程系列第七篇：SOAP Web Service的消费和创建</p>
+<li><p>EnjoyingSoft之Mule ESB开发教程第七篇：SOAP Web Service的消费和创建</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB开发教程系列第八篇：使用API构建Rest Service</p>
+<li><p>EnjoyingSoft之Mule ESB开发教程第八篇：使用API构建Rest Service</p>
 </li>
 </ul>
 <h2 id="1-使用Anypoint-Studio开发"><a href="#1-使用Anypoint-Studio开发" class="headerlink" title="1.  使用Anypoint Studio开发"></a>1.  使用Anypoint Studio开发</h2><p>Anypoint Studio是 MuleSoft提供的基于 Eclipse架构的集成开发环境 (IDE) 。使用Anypoint Studio，程序员可以几分种内轻松地创建出集成化的流程图，并使用图形化转换器来完成数据的映射。这里的映射就是指消息转换，消息转换是ESB很重要的功能。Anypoint Studio的图形化转换器功能非常强大，可以全方面的转换数据，包括数据结构，数据类型，数据内容的转换等。注意，图形化转换器是企业版才有的功能，社区版则需要自行开发，我们在社区版做过类似的图形化转换工具。</p>
@@ -209,7 +209,7 @@
 <p>下图总结了本文所讲述的内容，该Flow包含了上述所说的几类Processor。</p>
 <img src="/blogs/2018/12/20/mule-base-02/flow-demo.png">
 <p>本文已经讲述了Mule的基本概念，包括Mule ESB Application，Flow，Connector，Processor等。贯穿其中的就是消息，也就是Mule Message。Mule Message是Mule开发中非常重要的概念，下篇文章将着重讲解Mule Message。</p>
-<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10153082.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念</a></p>
+<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10153082.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念</a></p>
 <p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB实施,Mule ESB社区版实施,Mule ESB 实施,Mule ESB 社区版 实施</a>帮助。</p>
 <p>欢迎转载，但必须保留原文和此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
 
@@ -231,7 +231,7 @@
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          EnjoyingSoft之Mule ESB开发教程系列第三篇：Mule message structure - Mule message结构
+          EnjoyingSoft之Mule ESB开发教程第三篇：Mule message structure - Mule message结构
         
       </div>
     </a>
@@ -239,7 +239,7 @@
   
     <a href="/blogs/2018/12/17/mule-base-01/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">EnjoyingSoft之Mule ESB开发教程系列第一篇：初识Mule ESB</div>
+      <div class="article-nav-title">EnjoyingSoft之Mule ESB开发教程第一篇：初识Mule ESB</div>
     </a>
   
 </nav>
@@ -281,19 +281,19 @@
       <ul>
         
           <li>
-            <a href="/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式</a>
+            <a href="/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式</a>
           </li>
         
           <li>
-            <a href="/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程系列第三篇：Mule message structure - Mule message结构</a>
+            <a href="/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程第三篇：Mule message structure - Mule message结构</a>
           </li>
         
           <li>
-            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念</a>
+            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念</a>
           </li>
         
           <li>
-            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程系列第一篇：初识Mule ESB</a>
+            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程第一篇：初识Mule ESB</a>
           </li>
         
       </ul>

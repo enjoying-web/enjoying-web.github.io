@@ -10,20 +10,20 @@
   
 
   
-  <title>EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式 | 专注Mule ESB社区版实施，分享开源中间件</title>
+  <title>EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式 | 专注Mule ESB社区版实施，分享开源中间件</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本篇主要介绍Mule表达式语言，Mule Expression Language，简称MEL。MEL是一种轻量级，在Mule ESB使用的表达式语言，可用于访问和计算Mule Message的Payload，Property和Variable。几乎每一个Mule组件都可以使用MEL表达式。MEL表达式能够帮助开发者高效和优雅地过滤，路由，处理Mule message。关于Mule message基">
 <meta name="keywords" content="Mule ESB实施,Mule ESB社区版实施,Mule ESB 实施,Mule ESB 社区版 实施">
 <meta property="og:type" content="article">
-<meta property="og:title" content="EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式">
+<meta property="og:title" content="EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式">
 <meta property="og:url" content="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/index.html">
 <meta property="og:site_name" content="专注Mule ESB社区版实施，分享开源中间件">
 <meta property="og:description" content="本篇主要介绍Mule表达式语言，Mule Expression Language，简称MEL。MEL是一种轻量级，在Mule ESB使用的表达式语言，可用于访问和计算Mule Message的Payload，Property和Variable。几乎每一个Mule组件都可以使用MEL表达式。MEL表达式能够帮助开发者高效和优雅地过滤，路由，处理Mule message。关于Mule message基">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/var-hint.png">
-<meta property="og:updated_time" content="2019-01-05T13:56:07.000Z">
+<meta property="og:updated_time" content="2019-01-05T14:40:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式">
+<meta name="twitter:title" content="EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式">
 <meta name="twitter:description" content="本篇主要介绍Mule表达式语言，Mule Expression Language，简称MEL。MEL是一种轻量级，在Mule ESB使用的表达式语言，可用于访问和计算Mule Message的Payload，Property和Variable。几乎每一个Mule组件都可以使用MEL表达式。MEL表达式能够帮助开发者高效和优雅地过滤，路由，处理Mule message。关于Mule message基">
 <meta name="twitter:image" content="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/var-hint.png">
   
@@ -90,7 +90,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式
+      EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式
     </h1>
   
 
@@ -102,23 +102,23 @@
 <a id="more"></a>
 <p>Mule ESB是一个使用Java语言，基于Spring框架编写的开源企业服务总线，其相关源代码托管在<a href="https://github.com/mulesoft/mule" target="_blank" rel="noopener">GitHub</a>上。企业服务总线英文Enterprise Service Bus，简称ESB。</p>
 <p>MuleESB在众多开源的ESB中处于领先者的地位，拥有来自世界各地数十万个开发人员，超过数百万的下载量。MuleSoft公司也作为开源软件中的独角兽，2017年在纽交所成功上市。我们作为MuleSoft的重要合作伙伴也参与其中，在六年多的时间里，使用Mule ESB企业版开发，或者Mule ESB社区版开发，构建了众多Mule ESB实施案例，帮助国内众多的企业成功上线企业集成项目。</p>
-<p>我们使用Mule ESB开发的过程中，体会到它优秀的架构设计和高效的开发速度。同时也深感Mule ESB开发书籍，Mule ESB中文文档资料非常稀少，所以使用8篇文章来写基础Mule ESB开发教程，讲解如何使用Mule ESB开发。</p>
+<p>我们使用Mule ESB开发的过程中，体会到它优秀的架构设计和高效的开发速度。同时也深感Mule ESB开发书籍，Mule ESB中文文档资料非常稀少，所以使用8篇文章来写基础Mule ESB基础开发教程课程系列，讲解如何使用Mule ESB开发。</p>
 <ul>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程系列第一篇：初识Mule ESB</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程第一篇：初识Mule ESB</a></p>
 </li>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念</a></p>
 </li>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程系列第三篇：Mule message structure - Mule message结构</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程第三篇：Mule message structure - Mule message结构</a></p>
 </li>
-<li><p><a href="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式</a></p>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式</a></p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由</p>
+<li><p>EnjoyingSoft之Mule ESB开发教程第五篇：控制消息的流向-数据路由</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB开发教程系列第六篇：Data Transform - 数据转换</p>
+<li><p>EnjoyingSoft之Mule ESB开发教程第六篇：Data Transform - 数据转换</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB开发教程系列第七篇：SOAP Web Service的消费和创建</p>
+<li><p>EnjoyingSoft之Mule ESB开发教程第七篇：SOAP Web Service的消费和创建</p>
 </li>
-<li><p>EnjoyingSoft之Mule ESB开发教程系列第八篇：使用API构建Rest Service</p>
+<li><p>EnjoyingSoft之Mule ESB开发教程第八篇：使用API构建Rest Service</p>
 </li>
 </ul>
 <h2 id="1-MEL的优势"><a href="#1-MEL的优势" class="headerlink" title="1. MEL的优势"></a>1. MEL的优势</h2><p>在Mule ESB上有很多方法可以操作Mule Message，比如Java语言或者其他脚本语言(比如JavaScript等)。但是MEL表达式是Mule推荐使用，在Mule应用中的一个统一和标准的方法。</p>
@@ -365,7 +365,7 @@
 <p><code>#[lastname = (name == &#39;Smith&#39;) ? &#39;Smith&#39; : &#39;Unknown&#39;]</code></p>
 </li>
 </ol>
-<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10224648.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式</a></p>
+<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10224648.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式</a></p>
 <p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB 开发，Mule ESB 实施，Mule ESB 社区版 实施，Mule ESB实施，Mule ESB社区版实施</a>帮助。</p>
 <p>欢迎转载，但必须保留原文和此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
 
@@ -386,7 +386,7 @@
   
     <a href="/blogs/2018/12/23/mule-base-03/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">EnjoyingSoft之Mule ESB开发教程系列第三篇：Mule message structure - Mule message结构</div>
+      <div class="article-nav-title">EnjoyingSoft之Mule ESB开发教程第三篇：Mule message structure - Mule message结构</div>
     </a>
   
 </nav>
@@ -428,19 +428,19 @@
       <ul>
         
           <li>
-            <a href="/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式</a>
+            <a href="/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式</a>
           </li>
         
           <li>
-            <a href="/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程系列第三篇：Mule message structure - Mule message结构</a>
+            <a href="/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程第三篇：Mule message structure - Mule message结构</a>
           </li>
         
           <li>
-            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念</a>
+            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念</a>
           </li>
         
           <li>
-            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程系列第一篇：初识Mule ESB</a>
+            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程第一篇：初识Mule ESB</a>
           </li>
         
       </ul>
