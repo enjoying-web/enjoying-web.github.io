@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+	<style>
+		body{
+    	font-family:  "Microsoft YaHei"
+		}
+	</style>
+  <meta charset="utf-8">
+  
+
+  
+  <title>EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式 | 专注Mule ESB社区版实施，分享开源中间件</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本篇主要介绍Mule表达式语言，Mule Expression Language，简称MEL。MEL是一种轻量级，在Mule ESB使用的表达式语言，可用于访问和计算Mule Message的Payload，Property和Variable。几乎每一个Mule组件都可以使用MEL表达式。MEL表达式能够帮助开发者高效和优雅地过滤，路由，处理Mule message。关于Mule message基">
+<meta name="keywords" content="Mule ESB实施,Mule ESB社区版实施,Mule ESB 实施,Mule ESB 社区版 实施">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式">
+<meta property="og:url" content="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/index.html">
+<meta property="og:site_name" content="专注Mule ESB社区版实施，分享开源中间件">
+<meta property="og:description" content="本篇主要介绍Mule表达式语言，Mule Expression Language，简称MEL。MEL是一种轻量级，在Mule ESB使用的表达式语言，可用于访问和计算Mule Message的Payload，Property和Variable。几乎每一个Mule组件都可以使用MEL表达式。MEL表达式能够帮助开发者高效和优雅地过滤，路由，处理Mule message。关于Mule message基">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/var-hint.png">
+<meta property="og:updated_time" content="2019-01-05T13:56:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式">
+<meta name="twitter:description" content="本篇主要介绍Mule表达式语言，Mule Expression Language，简称MEL。MEL是一种轻量级，在Mule ESB使用的表达式语言，可用于访问和计算Mule Message的Payload，Property和Variable。几乎每一个Mule组件都可以使用MEL表达式。MEL表达式能够帮助开发者高效和优雅地过滤，路由，处理Mule message。关于Mule message基">
+<meta name="twitter:image" content="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/var-hint.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">专注Mule ESB社区版实施，分享开源中间件</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com">EnjoyingSoft</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/esb.html">企业服务总线</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/api.html">API全生命周期管理</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/docker.html">基于容器云的DevOps</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/about.html">关于我们</a>
+        
+          <a class="main-nav-link" href="/blogs/">Blogs</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" style="display:none" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.enjoyingsoft.com/blogs"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mule-base-04" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2019/01/05/mule-base-04/" class="article-date">
+  <time datetime="2019-01-05T13:48:57.000Z" itemprop="datePublished">2019-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本篇主要介绍Mule表达式语言，Mule Expression Language，简称MEL。MEL是一种轻量级，在Mule ESB使用的表达式语言，可用于访问和计算Mule Message的Payload，Property和Variable。几乎每一个Mule组件都可以使用MEL表达式。MEL表达式能够帮助开发者高效和优雅地过滤，路由，处理Mule message。关于Mule message基本概念，请参考<a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">第二篇</a>和<a href="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/">第三篇</a>文章。 </p>
+<a id="more"></a>
+<p>Mule ESB是一个使用Java语言，基于Spring框架编写的开源企业服务总线，其相关源代码托管在<a href="https://github.com/mulesoft/mule" target="_blank" rel="noopener">GitHub</a>上。企业服务总线英文Enterprise Service Bus，简称ESB。</p>
+<p>MuleESB在众多开源的ESB中处于领先者的地位，拥有来自世界各地数十万个开发人员，超过数百万的下载量。MuleSoft公司也作为开源软件中的独角兽，2017年在纽交所成功上市。我们作为MuleSoft的重要合作伙伴也参与其中，在六年多的时间里，使用Mule ESB企业版开发，或者Mule ESB社区版开发，构建了众多Mule ESB实施案例，帮助国内众多的企业成功上线企业集成项目。</p>
+<p>我们使用Mule ESB开发的过程中，体会到它优秀的架构设计和高效的开发速度。同时也深感Mule ESB开发书籍，Mule ESB中文文档资料非常稀少，所以使用8篇文章来写基础Mule ESB开发教程，讲解如何使用Mule ESB开发。</p>
+<ul>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程系列第一篇：初识Mule ESB</a></p>
+</li>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念</a></p>
+</li>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程系列第三篇：Mule message structure - Mule message结构</a></p>
+</li>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式</a></p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB开发教程系列第六篇：Data Transform - 数据转换</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB开发教程系列第七篇：SOAP Web Service的消费和创建</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB开发教程系列第八篇：使用API构建Rest Service</p>
+</li>
+</ul>
+<h2 id="1-MEL的优势"><a href="#1-MEL的优势" class="headerlink" title="1. MEL的优势"></a>1. MEL的优势</h2><p>在Mule ESB上有很多方法可以操作Mule Message，比如Java语言或者其他脚本语言(比如JavaScript等)。但是MEL表达式是Mule推荐使用，在Mule应用中的一个统一和标准的方法。</p>
+<ul>
+<li>MEL表达式为开发人员提供了一个一致的标准化语言，用来访问和计算Mule Message的Payload（负载），Property（属性）和Variable（变量）。</li>
+<li>MEL基于Mule特定的对象，Studio中提供auto-complete（自动完成，语法提示）的功能，帮助开发者快速编码。</li>
+<li>更重要的是，Mule的绝大多数组件都支持MEL，比如路由组件，过滤组件等。</li>
+</ul>
+<p>MEL的示例，这个示例在在Mule的Logger组件中使用MEL表达式获取FlowVars。</p>
+<p>从下图可以看到，我们在Logger组件中使用MEL表达式，能够提供语法提示，该提示带出了上一步设定的customerNo变量。</p>
+<img src="/blogs/2019/01/05/mule-base-04/var-hint.png">
+<p>XML配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"mel-flow"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">set-variable</span> <span class="attr">variableName</span>=<span class="string">"customerNo"</span> <span class="attr">value</span>=<span class="string">"#[1008]"</span> <span class="attr">doc:name</span>=<span class="string">"customerNo"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">message</span>=<span class="string">"The customerNo is #[flowVars.customerNo]"</span> <span class="attr">level</span>=<span class="string">"INFO"</span> <span class="attr">doc:name</span>=<span class="string">"Logger"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意：MEL是一种表达式，和脚本语言类似，但并不相同。表达式通常用于动态获取值或者设定值，或对数据进行简单的操作。表达式语言和脚本语言之间在功能上存在重叠，但如果您编写的内容非常复杂，需要的不仅仅是几行代码，或者您需要包含条件逻辑，那么脚本语言通常会更有用。如果简单的获取或设定值，调用方法或执行函数，则使用表达式则更方便。 </p>
+<h2 id="2-MEL的使用场景"><a href="#2-MEL的使用场景" class="headerlink" title="2. MEL的使用场景"></a>2. MEL的使用场景</h2><p>MEL表达式常用的使用场景大概可以分成三种。</p>
+<ul>
+<li>获取值<ul>
+<li><code>#[payload]</code><ul>
+<li>表示获取message的负载</li>
+</ul>
+</li>
+<li><code>#[message.inboundProperties.&#39;http.query.params&#39;.customerNo]</code><ul>
+<li>表示获取查询参数customerNo</li>
+</ul>
+</li>
+<li><code>#[payload.callMethod(parameters)</code><ul>
+<li>表示调用payload对象的callMethod方法，并获取方法返回值</li>
+</ul>
+</li>
+<li><code>#[xpath(&#39;//root/element&#39;)]</code><ul>
+<li>表示使用xpath语法解析并获取相应节点内容。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>条件比较，返回的结果就是布尔变量<ul>
+<li><code>#[payload.amount &gt; 2000]</code></li>
+<li><code>#[message.inboundProperties.&#39;http.method&#39; == &#39;GET&#39;]</code><ul>
+<li>表示判断HTTP请求是不是GET方法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设定值，通常用于Message Enricher组件。<ul>
+<li><code>#[flowVars.dbResult]</code><ul>
+<li>这里表示相应的值设定到dbResult变量中。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-MEL的示例"><a href="#3-MEL的示例" class="headerlink" title="3. MEL的示例"></a>3. MEL的示例</h2><ol>
+<li><p>使用表达式提取值，根据消息的内容，属性决定执行流程。在下面的示例中，payload是一个Java对象，我们根据购买类型，将订单分发路由到不同的JMS消息队列中。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">choice</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[payload.getOrderType() == 'book']"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jms:outbound-endpoint</span> <span class="attr">queue</span>=<span class="string">"bookQueue"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[payload.getOrderType() == 'music']"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jms:outbound-endpoint</span> <span class="attr">queue</span>=<span class="string">"musicQueue"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">choice</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用表达式提取值，并将值传递给Connector，如下示例就是使用MEL计算的值设定SMTP Connector的邮件标题，邮件接收人等。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">smtp:outbound-endpoint</span> <span class="attr">from</span>=<span class="string">"#[flowVars.mailFrom]"</span> <span class="attr">to</span>=<span class="string">"#[flowVars.mailTo]"</span> <span class="attr">subject</span>=<span class="string">"#[payload.mailSubject]"</span>  <span class="attr">doc:name</span>=<span class="string">"SMTP"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果payload是Java对象，可以调用payload方法，获取方法的返回值。示例就说调用calAmount方法，并打印计算出来的金额。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">message</span>=<span class="string">"#[payload.calAmount()]"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="4-MEL的上下文对象"><a href="#4-MEL的上下文对象" class="headerlink" title="4. MEL的上下文对象"></a>4. MEL的上下文对象</h2><p>我们在上述的MEL表达式示例中可以看到MEL有多个部分组成，第一部分就是上下文对象。MEL常见的上下文对象如下:</p>
+<table>
+<thead>
+<tr>
+<th>上下文对象</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#[server]</td>
+<td>当前服务器，可以获取服务器的时间，JDK版本等，如#[server.dateTime]，#[server.javaVersion]</td>
+</tr>
+<tr>
+<td>#[mule]</td>
+<td>当前Mule实例，可以获取Mule的版本，目录等。如#[mule.version]</td>
+</tr>
+<tr>
+<td>#[app]</td>
+<td>当前Mule应用的实例，可以获取应用的名称等。如#[app.name]</td>
+</tr>
+<tr>
+<td>#[message]</td>
+<td>这个是我们最经常使用的对象，就说Mule message。如#[message.payload]，#[message.inboundProperties.’http.query.params’.customerNo]等</td>
+</tr>
+</tbody>
+</table>
+<p>server上下文对象的常用属性:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Field描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dateTime</td>
+<td>系统当前时间</td>
+</tr>
+<tr>
+<td>host</td>
+<td>主机名</td>
+</tr>
+<tr>
+<td>ip</td>
+<td>主机IP</td>
+</tr>
+<tr>
+<td>osName</td>
+<td>操作系统名称</td>
+</tr>
+<tr>
+<td>userName</td>
+<td>当前用户</td>
+</tr>
+<tr>
+<td>userDir</td>
+<td>当前用户工作目录</td>
+</tr>
+</tbody>
+</table>
+<p>mule上下文对象的常用属性:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Field描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>home</td>
+<td>Mule Runtime的安装目录</td>
+</tr>
+<tr>
+<td>version</td>
+<td>Mule Runtime的版本</td>
+</tr>
+<tr>
+<td>nodeId</td>
+<td>集群下的本机ID</td>
+</tr>
+<tr>
+<td>clusterId</td>
+<td>集群ID</td>
+</tr>
+</tbody>
+</table>
+<p>app上下文对象的常用属性:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Field描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>Mule App应用名称</td>
+</tr>
+<tr>
+<td>workdir</td>
+<td>Mule App工作目录</td>
+</tr>
+</tbody>
+</table>
+<p>message上下文对象的常用属性:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Field描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>message的唯一ID</td>
+</tr>
+<tr>
+<td>rootId</td>
+<td>message的根ID</td>
+</tr>
+<tr>
+<td>payload</td>
+<td>message的负载</td>
+</tr>
+<tr>
+<td>inboundProperties</td>
+<td>message的inbound头信息</td>
+</tr>
+<tr>
+<td>inboundAttachments</td>
+<td>message的inbound附件信息</td>
+</tr>
+<tr>
+<td>outboundProperties</td>
+<td>message的outbound头信息</td>
+</tr>
+<tr>
+<td>outboundAttachments</td>
+<td>message的outbound附件信息</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-MEL的Variable"><a href="#5-MEL的Variable" class="headerlink" title="5. MEL的Variable"></a>5. MEL的Variable</h2><p>不同于第4点提到的上下文对象，MEL中还可以使用变量，使用变量并不要求在表达式中使用上下文对象。变量是顶层的标识符。MEL中常见的变量如下：</p>
+<ul>
+<li>flowVars - flowVars的有效范围是在一个Flow中，定义flowVars之后，后续的Message Processor都可以使用。</li>
+<li>sessionVars - 在跨Flow通信时，可以使用sessionVars来传递变量。需要注意的是，sessionVars并不总是有效的，其实取决于Inboud Endpoint的类型。后续再出专题介绍flowVars和sessionVars等之间的区别。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#[flowVars.foo = sessionVars.bar]</span><br></pre></td></tr></table></figure>
+<p>上述的表达式的意思是，将session变量赋值给flow变量。</p>
+<h2 id="6-MEL访问属性"><a href="#6-MEL访问属性" class="headerlink" title="6. MEL访问属性"></a>6. MEL访问属性</h2><ol>
+<li><p>点语法。适用对象通常是Java Pojo。MEL中可以使用点语法来访问相关的对象属性，同样对象属性的属性也是可以用点号来访问的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#[message.payload.item.name]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Null安全性访问。Java编程中经常遇到NullPointerException错误，也就是说对空对象进行访问操作会报错。而在MEL表达式，可以通过点语法.?来避免出错。如下示例，即使item为null，该表达式仍然不会报错，它会返回null值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#[message.payload.?item.name]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>属性名称的转义。如果属性名称有特殊字符，那么使用点语法会遇到问题，这个时候可以单引号进行转义。如下示例，http.query.params是一个整体。我们访问这个属性名，必须使用单引号进行转义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#[message.inboundProperties.&apos;http.query.params&apos;.customerNo]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中括号语法。如果对象是数组，或者Map，那么可以使用中括号进行访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#[payload[5]]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#[payload[&apos;userName&apos;]]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="7-MEL操作符"><a href="#7-MEL操作符" class="headerlink" title="7. MEL操作符"></a>7. MEL操作符</h2><p>常用的操作符如下，和普通的开发语言类似。还有更多的操作符可以查阅官方手册。</p>
+<ol>
+<li><p>算术运算符  +      -     /    *    %</p>
+<p><code>#[2 + 4]</code>  <code>#[&#39;fu&#39; + &#39;bar&#39;]</code></p>
+</li>
+<li><p>比较运算符  ==    !=     &gt;    &lt;     &gt;=      &lt;=</p>
+<p><code>#[&#39;A&#39; == &#39;A&#39;]</code>  <code>#[7 &gt; 5]</code></p>
+</li>
+<li><p>逻辑运算符  &amp;&amp; || </p>
+<p><code>#[(a == b) &amp;&amp; (c != d)]</code></p>
+</li>
+<li><p>三元操作符</p>
+<p><code>#[lastname = (name == &#39;Smith&#39;) ? &#39;Smith&#39; : &#39;Unknown&#39;]</code></p>
+</li>
+</ol>
+<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10224648.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式</a></p>
+<p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB 开发，Mule ESB 实施，Mule ESB 社区版 实施，Mule ESB实施，Mule ESB社区版实施</a>帮助。</p>
+<p>欢迎转载，但必须保留原文和此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/" data-id="cjqji0k0o0003f119u6pbdnwy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB-实施/">Mule ESB 实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB-社区版-实施/">Mule ESB 社区版 实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB实施/">Mule ESB实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB社区版实施/">Mule ESB社区版实施</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blogs/2018/12/23/mule-base-03/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">EnjoyingSoft之Mule ESB开发教程系列第三篇：Mule message structure - Mule message结构</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB-实施/">Mule ESB 实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB-社区版-实施/">Mule ESB 社区版 实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB实施/">Mule ESB实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB社区版实施/">Mule ESB社区版实施</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程系列第四篇：Mule Expression Language - MEL表达式</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程系列第三篇：Mule message structure - Mule message结构</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程系列第二篇：Mule ESB基本概念</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程系列第一篇：初识Mule ESB</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 EnjoyingSoft<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://www.enjoyingsoft.com" class="mobile-nav-link">EnjoyingSoft</a>
+  
+    <a href="http://www.enjoyingsoft.com/esb.html" class="mobile-nav-link">企业服务总线</a>
+  
+    <a href="http://www.enjoyingsoft.com/api.html" class="mobile-nav-link">API全生命周期管理</a>
+  
+    <a href="http://www.enjoyingsoft.com/docker.html" class="mobile-nav-link">基于容器云的DevOps</a>
+  
+    <a href="http://www.enjoyingsoft.com/about.html" class="mobile-nav-link">关于我们</a>
+  
+    <a href="/blogs/" class="mobile-nav-link">Blogs</a>
+  
+</nav>
+    
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.1.0/dist/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+<!-- Gaug.es Analytics -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b8b19c43398031a1950e9bcc5f7c315c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- End Gaug.es Analytics -->
+
+
+
+  </div>
+</body>
+</html>
