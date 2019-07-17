@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+	<style>
+		body{
+    	font-family:  "Microsoft YaHei"
+		}
+	</style>
+  <meta charset="utf-8">
+  
+
+  
+  <title>EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由 | 专注Mule ESB社区版实施，分享开源中间件</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本篇主要介绍在Mule ESB中控制消息的流向。控制消息的流向有很多不同的场景，数据的路由，数据的拆分和组合，数据的排序，数据的分发等。数据路由是ESB平台上最基本，也是最重要的功能之一，完整的ESB平台都会有相对应的功能。ESB基本的功能可分成消息路由，消息传输和消息转换等，后续几篇Mule ESB开发教程我们会陆续讲解这些功能。">
+<meta name="keywords" content="Mule ESB实施,Mule ESB社区版实施,Mule ESB 实施,Mule ESB 社区版 实施">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由">
+<meta property="og:url" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/index.html">
+<meta property="og:site_name" content="专注Mule ESB社区版实施，分享开源中间件">
+<meta property="og:description" content="本篇主要介绍在Mule ESB中控制消息的流向。控制消息的流向有很多不同的场景，数据的路由，数据的拆分和组合，数据的排序，数据的分发等。数据路由是ESB平台上最基本，也是最重要的功能之一，完整的ESB平台都会有相对应的功能。ESB基本的功能可分成消息路由，消息传输和消息转换等，后续几篇Mule ESB开发教程我们会陆续讲解这些功能。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/json-post.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/json-post-preview.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/xml-post.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/xml-post-preview.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/flow-control.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/message-ui.png">
+<meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/round.png">
+<meta property="og:updated_time" content="2019-07-17T15:18:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由">
+<meta name="twitter:description" content="本篇主要介绍在Mule ESB中控制消息的流向。控制消息的流向有很多不同的场景，数据的路由，数据的拆分和组合，数据的排序，数据的分发等。数据路由是ESB平台上最基本，也是最重要的功能之一，完整的ESB平台都会有相对应的功能。ESB基本的功能可分成消息路由，消息传输和消息转换等，后续几篇Mule ESB开发教程我们会陆续讲解这些功能。">
+<meta name="twitter:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/json-post.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/blogs/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blogs/" id="logo">专注Mule ESB社区版实施，分享开源中间件</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com">EnjoyingSoft</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/esb.html">企业服务总线</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/api.html">API全生命周期管理</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/docker.html">基于容器云的DevOps</a>
+        
+          <a class="main-nav-link" href="http://www.enjoyingsoft.com/about.html">关于我们</a>
+        
+          <a class="main-nav-link" href="/blogs/">Blogs</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" style="display:none" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.enjoyingsoft.com/blogs"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mule-base-05" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blogs/2019/07/17/mule-base-05/" class="article-date">
+  <time datetime="2019-07-17T13:48:57.000Z" itemprop="datePublished">2019-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本篇主要介绍在Mule ESB中控制消息的流向。控制消息的流向有很多不同的场景，数据的路由，数据的拆分和组合，数据的排序，数据的分发等。数据路由是ESB平台上最基本，也是最重要的功能之一，完整的ESB平台都会有相对应的功能。ESB基本的功能可分成消息路由，消息传输和消息转换等，后续几篇Mule ESB开发教程我们会陆续讲解这些功能。</p>
+<a id="more"></a>
+<p>Mule ESB同样具有很多的消息路由组件。作为开源ESB产品中很成熟的平台，Mule ESB的发展状态非常好，经过多年的发展，2017年在纽交所成功上市。Mule ESB拥有众多的企业案例，我们作为MuleSoft的重要合作伙伴，使用Mule ESB企业版开发实施，或者Mule ESB社区版开发实施，帮助国内众多的行业标杆客户成功上线企业集成项目。</p>
+<p>Mule ESB的源代码托管在<a href="https://github.com/mulesoft/mule" target="_blank" rel="noopener">GitHub</a>上，拥有非常详细的英文文档，Mule ESB的中文文档资料和开发教程却非常少，我们使用8篇文章来写基础Mule ESB中文开发教程，一起为开源软件做贡献。</p>
+<ul>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程第一篇：初识Mule ESB</a></p>
+</li>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念</a></p>
+</li>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程第三篇：Mule message structure - Mule message结构</a></p>
+</li>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式</a></p>
+</li>
+<li><p><a href="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/">EnjoyingSoft之Mule ESB开发教程第五篇：控制消息的流向-数据路由</a></p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB开发教程第六篇：Data Transform - 数据转换</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB开发教程第七篇：SOAP Web Service的消费和创建</p>
+</li>
+<li><p>EnjoyingSoft之Mule ESB开发教程第八篇：使用API构建Rest Service</p>
+</li>
+</ul>
+<h2 id="1-使用场景"><a href="#1-使用场景" class="headerlink" title="1. 使用场景"></a>1. 使用场景</h2><p>我们来看一个常见的应用场景。我们的集成应用可以接收客户端提交订单的请求，有多种不同类型的客户端。手机客户端是一个App，我们在App上使用的消息格式通常是轻量级的JSON格式。而PC客户端是一个Windows时代的产物，它仍然使用XML格式。我们的集成应用在接收到订单请求后，会根据订单的类别分发到不同的仓库，订单类别存储在订单内容的OrderType字段中。</p>
+<h2 id="2-基于消息头的路由"><a href="#2-基于消息头的路由" class="headerlink" title="2.  基于消息头的路由"></a>2.  基于消息头的路由</h2><p>我们首先要区分订单的格式，因为JSON和XML的处理逻辑是完全不同的。在Mule中我们可以使用MEL的JSON Path来解决JSON文件的解析，XML Path来解决XML文件的解析。MEL的详细用法可以参考<a href="http://www.enjoyingsoft.com/blogs/2019/01/05/mule-base-04/">上一篇</a>文章。订单的格式通常会放在消息头上传递，而Mule Message中对应消息头的部分就是Message Inboud Properties。</p>
+<h3 id="2-1-使用JSON提交订单的消息"><a href="#2-1-使用JSON提交订单的消息" class="headerlink" title="2.1 使用JSON提交订单的消息"></a>2.1 使用JSON提交订单的消息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;OrderType&quot;: &quot;Book&quot;,</span><br><span class="line">	&quot;TotalAmount&quot;: 1000,</span><br><span class="line">	&quot;OrderLines&quot;: [&#123;</span><br><span class="line">		&quot;ProductName&quot;: &quot;Learn English&quot;,</span><br><span class="line">		&quot;Qty&quot;: 3,</span><br><span class="line">		&quot;Price&quot;: 300</span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		&quot;ProductName&quot;: &quot;Lean Mule ESB&quot;,</span><br><span class="line">		&quot;Qty&quot;: 1,</span><br><span class="line">		&quot;Price&quot;: 100</span><br><span class="line">	&#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用Postman提交JSON，注意Content-Type设置为application/json。</p>
+<img src="/blogs/2019/07/17/mule-base-05/json-post.png">
+<p>通过Postman的Preview可以看到，实际上Http的Request头信息上设定了Content-Type字段为application/json。</p>
+<img src="/blogs/2019/07/17/mule-base-05/json-post-preview.png">
+<h3 id="2-2-使用XML提交订单的消息"><a href="#2-2-使用XML提交订单的消息" class="headerlink" title="2.2 使用XML提交订单的消息"></a>2.2 使用XML提交订单的消息</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">OrderInfo</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">OrderType</span>&gt;</span>Book<span class="tag">&lt;/<span class="name">OrderType</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">TotalAmount</span>&gt;</span>1000<span class="tag">&lt;/<span class="name">TotalAmount</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">OrderLines</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">OrderLine</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ProductName</span>&gt;</span>Learn English<span class="tag">&lt;/<span class="name">ProductName</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Qty</span>&gt;</span>3<span class="tag">&lt;/<span class="name">Qty</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Price</span>&gt;</span>300<span class="tag">&lt;/<span class="name">Price</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">OrderLine</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">OrderLine</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ProductName</span>&gt;</span>Learn Mule ESB<span class="tag">&lt;/<span class="name">ProductName</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Qty</span>&gt;</span>1<span class="tag">&lt;/<span class="name">Qty</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Price</span>&gt;</span>100<span class="tag">&lt;/<span class="name">Price</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">OrderLine</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">OrderLines</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">OrderInfo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用Postman提交XML，注意Content-Type设置为application/xml。</p>
+<img src="/blogs/2019/07/17/mule-base-05/xml-post.png">
+<p>通过Postman的Preview可以看到，实际上Http的Request头信息上设定了Content-Type字段为application/xml。</p>
+<img src="/blogs/2019/07/17/mule-base-05/xml-post-preview.png">
+<h3 id="2-3-使用Choice组件判断订单格式"><a href="#2-3-使用Choice组件判断订单格式" class="headerlink" title="2.3 使用Choice组件判断订单格式"></a>2.3 使用Choice组件判断订单格式</h3><p>Mule ESB最基本的路由组件就是Choice组件，组件类似于我们在编程语言中的if/esle if/else。订单的格式是存放在Message Inbound Properties中的。这里就使用Choice组件来判断订单的格式。</p>
+<p>Mule XML Config:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mule</span> <span class="attr">xmlns:http</span>=<span class="string">"http://www.mulesoft.org/schema/mule/http"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.mulesoft.org/schema/mule/core"</span> <span class="attr">xmlns:doc</span>=<span class="string">"http://www.mulesoft.org/schema/mule/documentation"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:spring</span>=<span class="string">"http://www.springframework.org/schema/beans"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">http:listener-config</span> <span class="attr">name</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">host</span>=<span class="string">"0.0.0.0"</span> <span class="attr">port</span>=<span class="string">"8081"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP Listener Configuration"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"flow-control"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">choice</span> <span class="attr">doc:name</span>=<span class="string">"Choice"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[message.inboundProperties['content-type'] == 'application/json']"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">logger</span> <span class="attr">message</span>=<span class="string">"JSON"</span> <span class="attr">level</span>=<span class="string">"INFO"</span> <span class="attr">doc:name</span>=<span class="string">"JSON"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[message.inboundProperties['content-type'] == 'application/xml']"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">logger</span> <span class="attr">message</span>=<span class="string">"XML"</span> <span class="attr">level</span>=<span class="string">"INFO"</span> <span class="attr">doc:name</span>=<span class="string">"XML"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">logger</span> <span class="attr">message</span>=<span class="string">"Error"</span> <span class="attr">level</span>=<span class="string">"INFO"</span> <span class="attr">doc:name</span>=<span class="string">"Error"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">choice</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mule</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Mule UI Config:</p>
+<img src="/blogs/2019/07/17/mule-base-05/flow-control.png">
+<p>通过Choice组件所支持的MEL语法，我们就能通过判断mule message inboundProperties来确定订单格式。需要注意的是，图上所示的Default是选择的最后一个路径，实际是if,else if,else,end if这个路径中的else路径。</p>
+<h2 id="3-基于消息内容的路由"><a href="#3-基于消息内容的路由" class="headerlink" title="3.  基于消息内容的路由"></a>3.  基于消息内容的路由</h2><p>通过消息头的判断，我们已经可以区分JSON格式和XML格式订单，那么如果区分订单类型呢，这里就需要用到基于消息内容的路由，我们对前面的代码做改进，同时引入消息队列。</p>
+<p>Mule XML Config:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mule</span> <span class="attr">xmlns:jms</span>=<span class="string">"http://www.mulesoft.org/schema/mule/jms"</span> <span class="attr">xmlns:http</span>=<span class="string">"http://www.mulesoft.org/schema/mule/http"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.mulesoft.org/schema/mule/core"</span> <span class="attr">xmlns:doc</span>=<span class="string">"http://www.mulesoft.org/schema/mule/documentation"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:spring</span>=<span class="string">"http://www.springframework.org/schema/beans"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">http:listener-config</span> <span class="attr">name</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">host</span>=<span class="string">"0.0.0.0"</span> <span class="attr">port</span>=<span class="string">"8081"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP Listener Configuration"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jms:activemq-connector</span> <span class="attr">name</span>=<span class="string">"Active_MQ"</span> <span class="attr">brokerURL</span>=<span class="string">"tcp://192.168.63.1:61616"</span> <span class="attr">validateConnections</span>=<span class="string">"true"</span> <span class="attr">doc:name</span>=<span class="string">"Active MQ"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"flow-control"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">choice</span> <span class="attr">doc:name</span>=<span class="string">"Choice"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[message.inboundProperties['content-type'] == 'application/json']"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">set-variable</span> <span class="attr">doc:name</span>=<span class="string">"orderType"</span> <span class="attr">value</span>=<span class="string">"#[json:/OrderType]"</span> <span class="attr">variableName</span>=<span class="string">"orderType"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">choice</span> <span class="attr">doc:name</span>=<span class="string">"Choice"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[flowVars.orderType == 'Book']"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">jms:outbound-endpoint</span> <span class="attr">queue</span>=<span class="string">"bookQ"</span> <span class="attr">connector-ref</span>=<span class="string">"Active_MQ"</span> <span class="attr">doc:name</span>=<span class="string">"bookQ"</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[flowVars.orderType == 'Tool']"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">jms:outbound-endpoint</span> <span class="attr">queue</span>=<span class="string">"toolQ"</span> <span class="attr">connector-ref</span>=<span class="string">"Active_MQ"</span> <span class="attr">doc:name</span>=<span class="string">"toolQ"</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">jms:outbound-endpoint</span> <span class="attr">queue</span>=<span class="string">"DLQ"</span> <span class="attr">connector-ref</span>=<span class="string">"Active_MQ"</span> <span class="attr">doc:name</span>=<span class="string">"DLQ"</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">choice</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[message.inboundProperties['content-type'] == 'application/xml']"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">set-variable</span> <span class="attr">doc:name</span>=<span class="string">"orderType"</span> <span class="attr">value</span>=<span class="string">"#[xpath://OrderInfo/OrderType]"</span> <span class="attr">variableName</span>=<span class="string">"orderType"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">choice</span> <span class="attr">doc:name</span>=<span class="string">"Choice"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[flowVars.orderType == 'Book']"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">jms:outbound-endpoint</span> <span class="attr">queue</span>=<span class="string">"bookQ"</span> <span class="attr">connector-ref</span>=<span class="string">"Active_MQ"</span> <span class="attr">doc:name</span>=<span class="string">"bookQ"</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">when</span> <span class="attr">expression</span>=<span class="string">"#[flowVars.orderType == 'Tool']"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">jms:outbound-endpoint</span> <span class="attr">queue</span>=<span class="string">"toolQ"</span> <span class="attr">connector-ref</span>=<span class="string">"Active_MQ"</span> <span class="attr">doc:name</span>=<span class="string">"toolQ"</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">jms:outbound-endpoint</span> <span class="attr">queue</span>=<span class="string">"DLQ"</span> <span class="attr">connector-ref</span>=<span class="string">"Active_MQ"</span> <span class="attr">doc:name</span>=<span class="string">"DLQ"</span>/&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">choice</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">jms:outbound-endpoint</span> <span class="attr">queue</span>=<span class="string">"DLQ"</span> <span class="attr">connector-ref</span>=<span class="string">"Active_MQ"</span> <span class="attr">doc:name</span>=<span class="string">"DQL"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">choice</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mule</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Mule UI Config:</p>
+<img src="/blogs/2019/07/17/mule-base-05/message-ui.png">
+<h2 id="4-其他控制流向的组件"><a href="#4-其他控制流向的组件" class="headerlink" title="4. 其他控制流向的组件"></a>4. 其他控制流向的组件</h2><p>除了使用Choice组件改变Flow执行路径以外，还要很多控制流向的组件。比如Round-Robin，Resequencer，Scatter-Gather，Splitter，Aggregator等组件。这些组件的用法各不相同，这里主要讲一下Round-Robin的用法。Round-Robin是一种轮询调度算法，在负载均衡的策略里面经常见到Round-Robin，轮询调度算法的原理是每一次把来自用户的请求轮流分配给内部中的服务器，从1开始，直到N(内部服务器个数)，然后重新开始循环。</p>
+<p>Mule的Round-Robin组件也是类似的思路，轮询执行Flow中的分支路径。举例如下，我们接收到用户的检索请求，每次请求我们使用不同的执行路径，第一次使用Bing搜索，第二次使用Google，第三次使用Baidu。</p>
+<p>Mule XML Config:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mule</span> <span class="attr">xmlns:http</span>=<span class="string">"http://www.mulesoft.org/schema/mule/http"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.mulesoft.org/schema/mule/core"</span> <span class="attr">xmlns:doc</span>=<span class="string">"http://www.mulesoft.org/schema/mule/documentation"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:spring</span>=<span class="string">"http://www.springframework.org/schema/beans"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">http:listener-config</span> <span class="attr">name</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">host</span>=<span class="string">"0.0.0.0"</span> <span class="attr">port</span>=<span class="string">"8081"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP Listener Configuration"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"round-robin-flow"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">round-robin</span> <span class="attr">doc:name</span>=<span class="string">"Round Robin"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">set-payload</span> <span class="attr">value</span>=<span class="string">"Baidu"</span> <span class="attr">doc:name</span>=<span class="string">"Baidu"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">set-payload</span> <span class="attr">value</span>=<span class="string">"Google"</span> <span class="attr">doc:name</span>=<span class="string">"Google"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">set-payload</span> <span class="attr">value</span>=<span class="string">"Bing"</span> <span class="attr">doc:name</span>=<span class="string">"Bing"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">round-robin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mule</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Mule UI Config:</p>
+<img src="/blogs/2019/07/17/mule-base-05/round.png">
+<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10262223.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由</a></p>
+<p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB 开发，Mule ESB 实施，Mule ESB 社区版 实施，Mule ESB实施，Mule ESB社区版实施</a>帮助。</p>
+<p>欢迎转载，但必须保留原文和此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/" data-id="cjy7dnbhp0005else6k09bw4i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB-实施/">Mule ESB 实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB-社区版-实施/">Mule ESB 社区版 实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB实施/">Mule ESB实施</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blogs/tags/Mule-ESB社区版实施/">Mule ESB社区版实施</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blogs/2019/01/05/mule-base-04/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB-实施/">Mule ESB 实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB-社区版-实施/">Mule ESB 社区版 实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB实施/">Mule ESB实施</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blogs/tags/Mule-ESB社区版实施/">Mule ESB社区版实施</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blogs/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blogs/2019/07/17/mule-base-05/">EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2019/01/05/mule-base-04/">EnjoyingSoft之Mule ESB开发教程第四篇：Mule Expression Language - MEL表达式</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/12/23/mule-base-03/">EnjoyingSoft之Mule ESB开发教程第三篇：Mule message structure - Mule message结构</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/12/20/mule-base-02/">EnjoyingSoft之Mule ESB开发教程第二篇：Mule ESB基本概念</a>
+          </li>
+        
+          <li>
+            <a href="/blogs/2018/12/17/mule-base-01/">EnjoyingSoft之Mule ESB开发教程第一篇：初识Mule ESB</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 EnjoyingSoft<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="http://www.enjoyingsoft.com" class="mobile-nav-link">EnjoyingSoft</a>
+  
+    <a href="http://www.enjoyingsoft.com/esb.html" class="mobile-nav-link">企业服务总线</a>
+  
+    <a href="http://www.enjoyingsoft.com/api.html" class="mobile-nav-link">API全生命周期管理</a>
+  
+    <a href="http://www.enjoyingsoft.com/docker.html" class="mobile-nav-link">基于容器云的DevOps</a>
+  
+    <a href="http://www.enjoyingsoft.com/about.html" class="mobile-nav-link">关于我们</a>
+  
+    <a href="/blogs/" class="mobile-nav-link">Blogs</a>
+  
+</nav>
+    
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.1.0/dist/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blogs/fancybox/jquery.fancybox.css">
+  <script src="/blogs/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blogs/js/script.js"></script>
+
+<!-- Gaug.es Analytics -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b8b19c43398031a1950e9bcc5f7c315c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- End Gaug.es Analytics -->
+
+
+
+  </div>
+</body>
+</html>
