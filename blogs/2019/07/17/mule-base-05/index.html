@@ -10,12 +10,12 @@
   
 
   
-  <title>EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由 | 专注Mule ESB社区版实施，分享开源中间件</title>
+  <title>EnjoyingSoft之Mule ESB开发教程第五篇：控制消息的流向-数据路由 | 专注Mule ESB社区版实施，分享开源中间件</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本篇主要介绍在Mule ESB中控制消息的流向。控制消息的流向有很多不同的场景，数据的路由，数据的拆分和组合，数据的排序，数据的分发等。数据路由是ESB平台上最基本，也是最重要的功能之一，完整的ESB平台都会有相对应的功能。ESB基本的功能可分成消息路由，消息传输和消息转换等，后续几篇Mule ESB开发教程我们会陆续讲解这些功能。">
 <meta name="keywords" content="Mule ESB实施,Mule ESB社区版实施,Mule ESB 实施,Mule ESB 社区版 实施">
 <meta property="og:type" content="article">
-<meta property="og:title" content="EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由">
+<meta property="og:title" content="EnjoyingSoft之Mule ESB开发教程第五篇：控制消息的流向-数据路由">
 <meta property="og:url" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/index.html">
 <meta property="og:site_name" content="专注Mule ESB社区版实施，分享开源中间件">
 <meta property="og:description" content="本篇主要介绍在Mule ESB中控制消息的流向。控制消息的流向有很多不同的场景，数据的路由，数据的拆分和组合，数据的排序，数据的分发等。数据路由是ESB平台上最基本，也是最重要的功能之一，完整的ESB平台都会有相对应的功能。ESB基本的功能可分成消息路由，消息传输和消息转换等，后续几篇Mule ESB开发教程我们会陆续讲解这些功能。">
@@ -27,9 +27,9 @@
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/flow-control.png">
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/message-ui.png">
 <meta property="og:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/round.png">
-<meta property="og:updated_time" content="2019-07-17T15:18:30.000Z">
+<meta property="og:updated_time" content="2019-07-17T15:35:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由">
+<meta name="twitter:title" content="EnjoyingSoft之Mule ESB开发教程第五篇：控制消息的流向-数据路由">
 <meta name="twitter:description" content="本篇主要介绍在Mule ESB中控制消息的流向。控制消息的流向有很多不同的场景，数据的路由，数据的拆分和组合，数据的排序，数据的分发等。数据路由是ESB平台上最基本，也是最重要的功能之一，完整的ESB平台都会有相对应的功能。ESB基本的功能可分成消息路由，消息传输和消息转换等，后续几篇Mule ESB开发教程我们会陆续讲解这些功能。">
 <meta name="twitter:image" content="http://www.enjoyingsoft.com/blogs/2019/07/17/mule-base-05/json-post.png">
   
@@ -96,7 +96,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由
+      EnjoyingSoft之Mule ESB开发教程第五篇：控制消息的流向-数据路由
     </h1>
   
 
@@ -155,7 +155,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mule</span> <span class="attr">xmlns:http</span>=<span class="string">"http://www.mulesoft.org/schema/mule/http"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.mulesoft.org/schema/mule/core"</span> <span class="attr">xmlns:doc</span>=<span class="string">"http://www.mulesoft.org/schema/mule/documentation"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:spring</span>=<span class="string">"http://www.springframework.org/schema/beans"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">http:listener-config</span> <span class="attr">name</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">host</span>=<span class="string">"0.0.0.0"</span> <span class="attr">port</span>=<span class="string">"8081"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP Listener Configuration"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">flow</span> <span class="attr">name</span>=<span class="string">"round-robin-flow"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">http:listener</span> <span class="attr">config-ref</span>=<span class="string">"HTTP_Listener_Configuration"</span> <span class="attr">path</span>=<span class="string">"/"</span> <span class="attr">doc:name</span>=<span class="string">"HTTP"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">round-robin</span> <span class="attr">doc:name</span>=<span class="string">"Round Robin"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">set-payload</span> <span class="attr">value</span>=<span class="string">"Baidu"</span> <span class="attr">doc:name</span>=<span class="string">"Baidu"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">set-payload</span> <span class="attr">value</span>=<span class="string">"Google"</span> <span class="attr">doc:name</span>=<span class="string">"Google"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">set-payload</span> <span class="attr">value</span>=<span class="string">"Bing"</span> <span class="attr">doc:name</span>=<span class="string">"Bing"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">round-robin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">flow</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mule</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>Mule UI Config:</p>
 <img src="/blogs/2019/07/17/mule-base-05/round.png">
-<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10262223.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由</a></p>
+<p>本文同步发文于<a href="https://www.cnblogs.com/enjoyingsoft/p/10262223.html" target="_blank" rel="noopener">EnjoyingSoft之Mule ESB开发教程第五篇：控制消息的流向-数据路由</a></p>
 <p>访问<a href="http://www.enjoyingsoft.com">EnjoyingSoft</a> 网站，获取更多<a href="http://www.enjoyingsoft.com">Mule ESB 开发，Mule ESB 实施，Mule ESB 社区版 实施，Mule ESB实施，Mule ESB社区版实施</a>帮助。</p>
 <p>欢迎转载，但必须保留原文和此段声明，且在文章页面明显位置给出原文链接，否则保留追究法律责任的权利。</p>
 
@@ -218,7 +218,7 @@
       <ul>
         
           <li>
-            <a href="/blogs/2019/07/17/mule-base-05/">EnjoyingSoft之Mule ESB开发教程系列第五篇：控制消息的流向-数据路由</a>
+            <a href="/blogs/2019/07/17/mule-base-05/">EnjoyingSoft之Mule ESB开发教程第五篇：控制消息的流向-数据路由</a>
           </li>
         
           <li>
